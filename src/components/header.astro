@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets'
 import logo from '@/assets/logo-dark.png'
+import { link } from '@/utils/links'
 ---
 
 <header>
@@ -10,11 +11,11 @@ import logo from '@/assets/logo-dark.png'
       <h1 class="logo-text">WWM Tools</h1>
     </div>
     <nav>
-      <a href="/">Home</a>
-      <a href="/compendium">Compendium</a>
-      <a href="/guides">Guides</a>
-      <a href="/tools">Tools</a>
-      <a href="/about">About</a>
+      <a href={link('')}>Home</a>
+      <a href={link('compendium')}>Compendium</a>
+      <a href={link('guides')}>Guides</a>
+      <a href={link('tools')}>Tools</a>
+      <a href={link('about')}>About</a>
     </nav>
   </div>
 </header>
@@ -81,14 +82,15 @@ import logo from '@/assets/logo-dark.png'
 </style>
 
 <script>
-  const path = globalThis.location.pathname
-  const first = path.split('/')[1] || ''
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '') // same as link() helper
+  const path = globalThis.location.pathname.replace(base, '') // strip base
+  const first = path.split('/').filter(Boolean)[0] || ''
 
   const links = document.querySelectorAll('header nav a')
 
   for (const link of links) {
     const href = link.getAttribute('href') || '/'
-    const key = href.split('/')[1] || ''
+    const key = href.replace(base, '').split('/').filter(Boolean)[0] || ''
 
     if (key === first) {
       link.classList.add('active')

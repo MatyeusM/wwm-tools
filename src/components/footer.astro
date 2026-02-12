@@ -2,6 +2,7 @@
 import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets'
 import logo from '@/assets/logo-dark.png'
+import { link } from '@/utils/links'
 const copyrightYear = new Date().getFullYear()
 ---
 
@@ -22,10 +23,10 @@ const copyrightYear = new Date().getFullYear()
       <div>
         <h4>Resources</h4>
         <ul>
-          <li><a href="/compendium">Compendium</a></li>
-          <li><a href="/guides">Guides</a></li>
-          <li><a href="/tools">Tools</a></li>
-          <li><a href="/about">About</a></li>
+          <li><a href={link('compendium')}>Compendium</a></li>
+          <li><a href={link('guides')}>Guides</a></li>
+          <li><a href={link('tools')}>Tools</a></li>
+          <li><a href={link('about')}>About</a></li>
         </ul>
       </div>
 

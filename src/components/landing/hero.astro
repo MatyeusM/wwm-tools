@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets'
 import heroImg from '@/assets/images/1_tianzishan_wulingyuan_zhangjiajie_2012.jpg'
+import { link } from '@/utils/links'
 ---
 
 <style lang="scss">
@@ -110,9 +111,15 @@ import heroImg from '@/assets/images/1_tianzishan_wulingyuan_zhangjiajie_2012.jp
         decision-making.
       </p>
       <div class="actions">
-        <button class="primary" onclick="location.href='/compendium'">Get Started</button>
-        <button onclick="location.href='/guides'">Browse Guides</button>
-        <button onclick="location.href='/about'">Credits</button>
+        <a href={link('compendium')}>
+          <button class="primary">Get Started</button>
+        </a>
+        <a href={link('guides')}>
+          <button>Browse Guides</button>
+        </a>
+        <a href={link('about')}>
+          <button>Credits</button>
+        </a>
       </div>
     </div>
   </div>

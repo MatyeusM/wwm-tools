@@ -1,6 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components'
 import Card from '../generic/card.astro'
+import { link as linkHelper } from '@/utils/links'
 
 interface Properties {
   title: string
@@ -12,7 +13,7 @@ interface Properties {
 const { title, description, link, linkText } = Astro.props as Properties
 ---
 
-<a href={link}>
+<a href={linkHelper(link)}>
   <Card hover={true}>
     <h3>{title}</h3>
     <p>{description}</p>

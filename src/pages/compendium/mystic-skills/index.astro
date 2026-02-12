@@ -4,6 +4,7 @@ import Layout from '@/layouts/layout.astro'
 import Header from '@/components/generic/header.astro'
 import Card from '@/components/generic/card.astro'
 import type { MysticSkill } from '@/types/mystic-skill'
+import { link } from '@/utils/links'
 
 export const meta = {
   icon: 'fa6-solid:scroll',
@@ -67,7 +68,7 @@ if (otherSkills.length > 0) {
 
         <div class="skills-grid">
           {categorySkills.map(skill => (
-            <a href={`/compendium/mystic-skills/${skill.slug}`} class="skill-card-link">
+            <a href={link(`/compendium/mystic-skills/${skill.slug}`)} class="skill-card-link">
               <Card hover>
                 <div class="card-header">
                   <h3>{skill.name}</h3>
