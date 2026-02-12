@@ -1,13 +1,9 @@
 name: Leaping Toad
 
-description: >
-  Recommended for Arena. Flip back to knock back enemies, dealing low (Physical Attack + Constant
-  Physical + Other Attribute Damage) damage. Then lunge at the target, dealing moderate (Physical
-  Attack + Constant Physical + Other Attribute Damage) damage. Recast twice (15 Vitality each) to
-  apply Toad Venom. The third cast becomes Golden Toad Crash, an AoE knockdown, dealing
-  moderate-high (Physical Attack + Constant Physical + Other Attribute Damage) damage. Toad Venom:
-  Explodes after 5s or on death for moderate (Physical Attack + Constant Physical + Other Attribute
-  Damage) damage in a small area. Can be detonated early by Lion's Roar for additional effects.
+description: |
+  Recommended for Arena.
+  Flip back to knock back enemies, dealing low (Physical Attack + Constant Physical + Other Attribute Damage) damage. Then lunge at the target, dealing moderate (Physical Attack + Constant Physical + Other Attribute Damage) damage. Recast twice (15 Vitality each) to apply Toad Venom. The third cast becomes Golden Toad Crash, an AoE knockdown, dealing moderate-high (Physical Attack + Constant Physical + Other Attribute Damage) damage.
+  Toad Venom: Explodes after 5s or on death for moderate (Physical Attack + Constant Physical + Other Attribute Damage) damage in a small area. Can be detonated early by Lion's Roar for additional effects.
 
 tier_bonuses:
   - tier: 2
@@ -19,8 +15,7 @@ tier_bonuses:
   - tier: 4
     effect: Increases the explosion radius of Toad Venom by 50%.
   - tier: 5
-    effect:
-      When the skill hits a target with basic Toad Venom, triggers Lesser Toad Venom explosion.
+    effect: When the skill hits a target with basic Toad Venom, triggers Lesser Toad Venom explosion.
 
 tags:
   - Damage

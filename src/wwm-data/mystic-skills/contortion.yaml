@@ -1,10 +1,8 @@
 name: Contortion
 
-description: >
-  Shrink your form to 0.3 x your normal size. While contorted, you cannot attack with weapons,
-  climb, ride mounts, swim, or perform similar actions. The effect breaks upon entering combat. Use
-  again to revert to normal. However, if you hit an obstacle while reverting, you suffer serious
-  injury.
+description: |
+  Shrink your form to 0.3 x your normal size. While contorted, you cannot attack with weapons, climb, ride mounts, swim, or perform similar actions. The effect breaks upon entering combat.
+  Use again to revert to normal. However, if you hit an obstacle while reverting, you suffer serious injury.
 
 tags:
   - Contortion

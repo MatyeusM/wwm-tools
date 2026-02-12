@@ -1,13 +1,10 @@
 name: Cloud Steps
 
-description: >
-  Out of combat: Leap high to slam down or hold breath to jump to target locations. These locations
-  are marked on the game interface. In combat: Stomp on an enemy's shoulders to deal low (Physical
-  Attack + Constant Physical + Other Attribute Damage) damage. It can also knock down players with
-  Tenacity and deal moderate (Physical Attack + Constant Physical + Other Attribute Damage) damage
-  to them. Has bonus effects against Cavalry and other units with Unstable Poise. Unstable Poise:
-  Thes units have a Stance bar near their HP. Lower-body attacks will trigger special effects on
-  them and deal moderate (Physical Attack + Constant Physical + Other Attribute Damage) damage.
+description: |
+  Out of combat: Leap high to slam down or hold breath to jump to target locations. These locations are marked on the game interface.
+  In combat: Stomp on an enemy's shoulders to deal low (Physical Attack + Constant Physical + Other Attribute Damage) damage. It can also knock down players with Tenacity and deal moderate (Physical Attack + Constant Physical + Other Attribute Damage) damage to them.
+  Has bonus effects against Cavalry and other units with Unstable Poise.
+  Unstable Poise: These units have a Stance bar near their HP. Lower-body attacks will trigger special effects on them and deal moderate (Physical Attack + Constant Physical + Other Attribute Damage) damage.
 
 tier_bonuses:
   - tier: 2

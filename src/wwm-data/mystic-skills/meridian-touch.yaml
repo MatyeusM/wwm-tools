@@ -1,15 +1,13 @@
 name: Meridian Touch
 
-description: >
-  Out of combat: Select acupoints for a chance at special effects. Finger Technique: Success chance
-  depeneds on Finger Technique. Fleetfoot: Yangbai Point resistance. A successful strike
-  immobilizies the target. Clarity: Xiaohu Point resistance. A successful strike causes
-  uncontrollable laughter. Unfettered Flow: Quichi Point resistance. A successful strike causes
-  unbearable itching. In combat: There's a chance to immobilize enemies, deal (Physical Attack +
-  Constant Physical + Other Attribute Damage) damage, and destroy the target's Vital Spots.
-  Immbolize ineffective against mighty enemies. Vital Spots: These enemies have bound Qi bars.
-  Destroying their Vital Spots disables Qi regen and deals moderate extra (Physical Attack +
-  Constant Physical + Other Attribute Damage) damage and 12 Qi damage.
+description: |
+  Out of combat: Select acupoints for a chance at special effects.
+  Finger Technique: Success chance depeneds on Finger Technique.
+  Fleetfoot: Yangbai Point resistance. A successful strike immobilizies the target.
+  Clarity: Xiaohu Point resistance. A successful strike causes uncontrollable laughter.
+  Unfettered Flow: Quichi Point resistance. A successful strike causes unbearable itching.
+  In combat: There's a chance to immobilize enemies, deal (Physical Attack + Constant Physical + Other Attribute Damage) damage, and destroy the target's Vital Spots. Immbolize ineffective against mighty enemies.
+  Vital Spots: These enemies have bound Qi bars. Destroying their Vital Spots disables Qi regen and deals moderate extra (Physical Attack + Constant Physical + Other Attribute Damage) damage and 12 Qi damage.
 
 tier_bonuses:
   - tier: 2

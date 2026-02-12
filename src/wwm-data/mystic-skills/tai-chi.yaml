@@ -1,14 +1,11 @@
 name: Tai Chi
 
-description: >
-  When used out of combat, this skill gathers fallen leaves in certain areas. When used on water, it
-  creates ripples that send fish leaping. In Hexi, you can use a shortcut key to reverse the state
-  of resonating objects, restoring them to their former condition. When used in combat: Pulls and
-  whirls the target, allowing you to aim by rotating the camera before hurling them for (Physical
-  Attack + Constant Physical + Other Attribute Damage) damage. Has bonus effects against
-  Shield-Bearing Enemies. Shield-Bearing Enemies: These units are protected from the front. When
-  pulled by Tai Chi, their shield is removed and they suffer large bonus (Physical Attack + Constant
-  Physical + Other Attribute Damage) damage.
+description: |
+  When used out of combat, this skill gathers fallen leaves in certain areas.
+  When used on water, it creates ripples that send fish leaping.
+  In Hexi, you can use a shortcut key to reverse the state of resonating objects, restoring them to their former condition.
+  When used in combat: Pulls and whirls the target, allowing you to aim by rotating the camera before hurling them for (Physical Attack + Constant Physical + Other Attribute Damage) damage. Has bonus effects against Shield-Bearing Enemies.
+  Shield-Bearing Enemies: These units are protected from the front. When pulled by Tai Chi, their shield is removed and they suffer large bonus (Physical Attack + Constant Physical + Other Attribute Damage) damage.
 
 tier_bonuses:
   - tier: 2

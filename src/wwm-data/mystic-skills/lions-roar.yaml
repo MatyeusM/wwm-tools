@@ -1,12 +1,9 @@
 name: Lion's Roar
 
-description: >
-  Recommended for Arena. Slam a giant bell for low (Physical Attack + Constant Physical + Other
-  Attribute Damage) damage, then unleash a deafening roar dealing moderate (Physical Attack +
-  Constant Physical + Other Attribute Damage) damage over 14 hits in a large area. Gain 15% Damage
-  Reduction and Tenacity. Hitting a Toad Venom target detonates the venom, spreading it and
-  increasing the roar damage to high (Physical Attack + Constant Physical + Other Attribute Damage)
-  damage.
+description: |
+  Recommended for Arena.
+  Slam a giant bell for low (Physical Attack + Constant Physical + Other Attribute Damage) damage, then unleash a deafening roar dealing moderate (Physical Attack + Constant Physical + Other Attribute Damage) damage over 14 hits in a large area. Gain 15% Damage Reduction and Tenacity.
+  Hitting a Toad Venom target detonates the venom, spreading it and increasing the roar damage to high (Physical Attack + Constant Physical + Other Attribute Damage) damage.
 
 tier_bonuses:
   - tier: 2

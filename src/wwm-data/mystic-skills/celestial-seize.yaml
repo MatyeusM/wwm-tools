@@ -1,11 +1,12 @@
 name: Celestial Seize
 
-description: >
-  Out of combat: Pull distant objects, including those from chests/backpacks. In combat: Disarm an
-  enemy and counter with their own weapon for low (Physical Attack + Constant Physical + Other
-  Attribute Damage) damage and 2 Qi damage. Damage scales with weapon weight (max high damage and 8
-  Qi damage). Co-op: Only host can pull. (No disarm) Online: Pull in specific modes only. (No
-  disarm)
+description: |
+  Out of combat: Pull distant objects, including those from chests/backpacks.
+  In combat: Disarm an enemy and counter with their own weapon for low (Physical Attack + Constant
+  Physical + Other Attribute Damage) damage and 2 Qi damage. Damage scales with weapon weight (max
+  high damage and 8 Qi damage).
+  Co-op: Only host can pull. (No disarm)
+  Online: Pull in specific modes only. (No disarm)
 
 tier_bonuses:
   - tier: 2
