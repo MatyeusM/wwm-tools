@@ -1,5 +1,6 @@
 ---
 import Layout from '@/layouts/layout.astro'
+import Card from '@/components/generic/card.astro'
 import type { MysticSkill, TierBonus } from '@/types/mystic-skill'
 
 export async function getStaticPaths() {
@@ -15,7 +16,7 @@ const { skill } = Astro.props as { skill: MysticSkill }
 ---
 
 <Layout>
-  <div class="skill-detail">
+  <Card border="top-bottom">
     <header class="skill-detail__header">
       <div class="header-main">
         <span class="category-badge">{skill.category}</span>
@@ -40,7 +41,7 @@ const { skill } = Astro.props as { skill: MysticSkill }
     <div class="skill-detail__content">
       <section class="description-section">
         <h2>Description</h2>
-        <p>{skill.description}</p>
+        <p set:html={skill.description.replace(/\n/g, '<br />')} />
       </section>
 
       {
@@ -59,26 +60,20 @@ const { skill } = Astro.props as { skill: MysticSkill }
         )
       }
     </div>
-  </div>
+  </Card>
 </Layout>
 
 <style lang="scss">
   @use '../../../scss/mixins' as *;
 
-  .skill-detail {
-    padding: 4rem 1.5rem;
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
   .skill-detail__header {
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     gap: 2rem;
     @include border($bottom: true);
-    padding-bottom: 2rem;
+    padding-bottom: 0.5rem;
 
     .category-badge {
       display: inline-block;
@@ -87,17 +82,13 @@ const { skill } = Astro.props as { skill: MysticSkill }
       @include background(below-primary);
       @include text-color(primary);
 
-      border-radius: 4px;
-      font-size: 0.8rem;
-      font-weight: 700;
+      @include font-size(sm);
+      @include font-sans-bold;
       text-transform: uppercase;
       margin-bottom: 1rem;
     }
 
     h1 {
-      @include font-display-black;
-      font-size: clamp(2rem, 5vw, 3rem);
-      margin: 0 0 1rem 0;
       @include text-color(default);
     }
 
@@ -108,7 +99,7 @@ const { skill } = Astro.props as { skill: MysticSkill }
     }
 
     .tag {
-      font-size: 0.85rem;
+      @include font-size(sm);
       @include text-color(muted);
       &::before {
         content: '#';
@@ -131,33 +122,29 @@ const { skill } = Astro.props as { skill: MysticSkill }
       text-transform: uppercase;
       @include increase-letter-spacing(0.5);
       @include text-color(muted);
-      font-weight: 600;
+      @include font-sans-medium;
     }
 
     .value {
-      @include font-size(lg);
-      font-weight: 700;
+      @include font-size(base);
+      @include font-sans-bold;
       @include text-color(primary);
     }
   }
 
   .skill-detail__content {
     h2 {
-      @include font-display-bold;
-      @include font-size(2xl);
-      margin: 0 0 1.5rem 0;
+      margin-bottom: 0.75rem;
       @include text-color(default);
     }
 
-    section {
-      margin-bottom: 4rem;
+    section:not(:last-child) {
+      margin-bottom: 2rem;
     }
   }
 
   .description-section {
     p {
-      @include font-size(lg);
-      line-height: 1.8;
       @include text-color(muted);
       white-space: pre-wrap;
     }
@@ -169,18 +156,14 @@ const { skill } = Astro.props as { skill: MysticSkill }
   }
 
   .bonus-card {
-    @include background(surface-1);
-
-    // Custom thick border using helper function
-    border-left: 4px solid get-border-color(primary);
-
-    padding: 1.5rem;
-    border-radius: 0 0.5rem 0.5rem 0;
+    @include background(surface-2);
+    @include border($left: true, $color: primary, $width: thick);
+    padding: 1rem 1.5rem;
 
     .tier {
       display: block;
-      font-size: 0.8rem;
-      font-weight: 800;
+      @include font-size(sm);
+      @include font-sans-bold;
       @include text-color(primary);
       margin-bottom: 0.5rem;
       text-transform: uppercase;
@@ -189,7 +172,6 @@ const { skill } = Astro.props as { skill: MysticSkill }
     p {
       margin: 0;
       @include text-color(default);
-      line-height: 1.5;
     }
   }
 

@@ -1,20 +1,27 @@
 ---
 interface Properties {
-  border?: 'outline' | 'primary' | 'none'
+  border?: 'all' | 'top-bottom'
+  borderColor?: 'outline' | 'primary' | 'none'
   background?: 'surface-1' | 'surface-2' | 'primary-bg' | 'none-bg'
+  shadow?: 'none' | 'sm' | 'md' | 'lg'
+  padding?: 'none' | 'sm' | 'md' | 'lg'
   hover?: boolean
   class?: string
 }
 
 const {
-  border = 'outline',
+  border = 'all',
+  borderColor = 'outline',
   background = 'surface-1',
+  shadow = 'none',
   hover = false,
   class: className = '',
 } = Astro.props as Properties
 ---
 
-<div class={`card ${border} ${background} ${hover ? 'hover' : ''} ${className}`}>
+<div
+  class={`card border-${border} border-color-${borderColor} ${background} ${shadow !== 'none' ? `shadow-${shadow}` : ''} ${hover ? 'hover' : ''} ${className}`}
+>
   <slot />
 </div>
 
@@ -27,15 +34,27 @@ const {
     padding: 1.5rem;
   }
 
-  .outline {
-    @include border($all: true);
+  .border-all {
+    &.border-color-outline {
+      @include border($all: true);
+    }
+
+    &.border-color-primary {
+      @include border($all: true, $color: primary);
+    }
   }
 
-  .primary {
-    @include border($all: true, $color: primary);
+  .border-top-bottom {
+    &.border-color-outline {
+      @include border($top: true, $bottom: true);
+    }
+
+    &.border-color-primary {
+      @include border($top: true, $bottom: true, $color: primary);
+    }
   }
 
-  .none {
+  .border-color-none {
     border: none;
   }
 
@@ -56,7 +75,20 @@ const {
     background: none;
   }
 
-  .outline.hover:hover {
+  .shadow-sm {
+    @include shadow-elevation(sm);
+  }
+
+  .shadow-md {
+    @include shadow-elevation(md);
+  }
+
+  .shadow-lg {
+    @include shadow-elevation(lg);
+  }
+
+  .border-all.border-color-outline.hover:hover,
+  .border-top-bottom.border-color-outline.hover:hover {
     @include hover-transition($border-color: get-border-color(primary));
   }
 

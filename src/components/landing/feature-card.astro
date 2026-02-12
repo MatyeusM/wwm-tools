@@ -12,24 +12,27 @@ interface Properties {
 const { title, description, link, linkText } = Astro.props as Properties
 ---
 
-<Card hover={true}>
-  <h3>{title}</h3>
-  <p>{description}</p>
-  <a href={link}>
-    {linkText}
-    <Icon name="fa6-solid:arrow-right" class="link-icon" />
-  </a>
-</Card>
+<a href={link}>
+  <Card hover={true}>
+    <h3>{title}</h3>
+    <p>{description}</p>
+
+    <span>
+      {linkText}
+      <Icon name="fa6-solid:arrow-right" class="link-icon" />
+    </span>
+  </Card>
+</a>
 
 <style lang="scss">
   @use '@/scss/mixins' as *;
 
-  :global(div):hover h3 {
-    @include text-color(primary);
+  a {
+    display: flex;
   }
 
-  :global(div):hover a {
-    gap: 0.875rem;
+  a:hover h3 {
+    @include text-color(primary);
   }
 
   :where(p, a) {
@@ -48,13 +51,21 @@ const { title, description, link, linkText } = Astro.props as Properties
     flex-grow: 1;
   }
 
-  a {
+  span {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    @include font-display-bold;
+    gap: 0.25rem;
+    @include font-sans-bold;
     @include increase-letter-spacing;
-    transition: gap 0.3s;
+    @include text-color(muted);
+    transition:
+      transform 0.3s ease,
+      color 0.3s ease;
+  }
+
+  a:hover span {
+    @include text-color(primary);
+    transform: translateX(0.325rem);
   }
 
   .link-icon {

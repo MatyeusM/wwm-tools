@@ -1,6 +1,8 @@
 ---
+import { Icon } from 'astro-icon/components'
 import Layout from '@/layouts/layout.astro'
 import Header from '@/components/generic/header.astro'
+import Card from '@/components/generic/card.astro'
 import type { MysticSkill } from '@/types/mystic-skill'
 
 export const meta = {
@@ -51,53 +53,50 @@ if (otherSkills.length > 0) {
 ---
 
 <Layout>
-  <div class="compendium-container">
-    <Header title="Mystic Skills" description="A list of known mystic skills." variant="large" />
+  <Header title="Mystic Skills" description="A list of known mystic skills." />
 
-    <div class="compendium__content">
-      {
-        Object.entries(groupedSkills).map(([category, categorySkills]) => (
-          <section class="category-block" id={category.toLowerCase().replaceAll(/\s+/g, '-')}>
-            <div class="category-header">
-              <h2 class="category-title">{category}</h2>
-              <span class="category-count">
-                {categorySkills.length} {categorySkills.length === 1 ? 'skill' : 'skills'}
-              </span>
-            </div>
+  {
+    Object.entries(groupedSkills).map(([category, categorySkills]) => (
+      <section id={category.toLowerCase().replaceAll(/\s+/g, '-')}>
+        <div class="category-header">
+          <h2>{category}</h2>
+          <span>
+            {categorySkills.length} {categorySkills.length === 1 ? 'skill' : 'skills'}
+          </span>
+        </div>
 
-            <div class="skills-grid">
-              {categorySkills.map(skill => (
-                <a href={`/compendium/mystic-skills/${skill.slug}`} class="skill-card">
-                  <div class="skill-card__header">
-                    <h3 class="skill-card__name">{skill.name}</h3>
-                    <div class="skill-card__meta">
-                      {skill.tags?.slice(0, 2).map((tag: string) => (
-                        <span class="skill-tag">{tag}</span>
-                      ))}
-                    </div>
+        <div class="skills-grid">
+          {categorySkills.map(skill => (
+            <a href={`/compendium/mystic-skills/${skill.slug}`} class="skill-card-link">
+              <Card hover>
+                <div class="card-header">
+                  <h3>{skill.name}</h3>
+                  <div class="card-meta">
+                    {skill.tags?.map((tag: string) => (
+                      <span class="card-tag">{tag}</span>
+                    ))}
                   </div>
-                  <p class="skill-card__description">{skill.description}</p>
-                  <div class="skill-card__footer">
-                    <span class="skill-card__link">View Details →</span>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </section>
-        ))
-      }
-    </div>
-  </div>
+                </div>
+                <p class="card-description">{skill.description}</p>
+                <div class="card-footer">
+                  <span class="card-link">
+                    View Details
+                    <Icon name="fa6-solid:arrow-right" class="link-icon" />
+                  </span>
+                </div>
+              </Card>
+            </a>
+          ))}
+        </div>
+      </section>
+    ))
+  }
 </Layout>
 
 <style lang="scss">
   @use '@/scss/mixins' as *;
 
-  .compendium-container {
-    padding: 3rem 0;
-  }
-
-  .category-block {
+  section {
     margin-bottom: 5rem;
 
     &:last-child {
@@ -112,107 +111,61 @@ if (otherSkills.length > 0) {
     margin-bottom: 2rem;
     @include border($bottom: true);
     padding-bottom: 1rem;
-  }
 
-  .category-title {
-    @include font-display-bold;
-    @include font-size(2xl);
-    @include text-color(default);
-  }
+    h2 {
+      @include text-color(default);
+      @include font-size(2xl);
+    }
 
-  .category-count {
-    @include font-size(sm);
-    @include text-color(primary);
-    text-transform: uppercase;
-    @include increase-letter-spacing(0.5);
-    font-weight: 600;
+    span {
+      @include font-size(sm);
+      @include text-color(primary);
+      text-transform: uppercase;
+      @include increase-letter-spacing(0.5);
+      @include font-sans-bold;
+    }
   }
 
   .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
   }
 
-  .skill-card {
-    @include background(surface-1);
-    @include border;
-    padding: 2rem;
-    // We handle transition manually because we have transform/shadow animations too
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  .skill-card-link {
     text-decoration: none;
     color: inherit;
     display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, get-text-color(primary), transparent);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
 
     &:hover {
-      transform: translateY(-8px);
-      background: get-background(surface-2);
-      border-color: get-text-color(primary);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-
-      &::before {
-        opacity: 1;
-      }
-
-      .skill-card__link {
+      .card-link {
         @include text-color(primary);
-        transform: translateX(5px);
+        transform: translateX(0.325rem);
       }
     }
   }
 
-  .skill-card__header {
+  .card-header {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    flex-direction: column;
     margin-bottom: 1.5rem;
-    gap: 1rem;
   }
 
-  .skill-card__name {
-    @include font-display-bold;
-    @include font-size(xl);
-    @include text-color(default);
-    margin: 0;
-    line-height: 1.2;
-  }
-
-  .skill-card__meta {
+  .card-meta {
     display: flex;
     gap: 0.5rem;
-  }
-
-  .skill-tag {
-    @include font-size(sm); // approx 0.7rem
-    text-transform: uppercase;
-    @include increase-letter-spacing(0.5);
-    padding: 0.2rem 0.6rem;
-
-    @include background(below-primary);
+    @include font-size(sm);
     @include text-color(primary);
-    @include border;
   }
 
-  .skill-card__description {
-    font-size: 0.95rem;
-    line-height: 1.6;
+  .card-tag:before {
+    content: '#';
+  }
+
+  .card-description {
+    @include font-size(base);
     @include text-color(muted);
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -220,25 +173,23 @@ if (otherSkills.length > 0) {
     flex-grow: 1;
   }
 
-  .skill-card__footer {
+  .card-footer {
     margin-top: auto;
   }
 
-  .skill-card__link {
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
     @include font-size(sm);
-    font-weight: 600;
+    @include font-sans-bold;
     @include text-color(muted);
-    transition: all 0.3s ease;
-    display: inline-block;
+    transition:
+      transform 0.3s ease,
+      color 0.3s ease;
   }
 
-  @media (max-width: 768px) {
-    .compendium-container {
-      padding: 2rem 1rem;
-    }
-
-    .skills-grid {
-      grid-template-columns: 1fr;
-    }
+  .link-icon {
+    font-size: 1.15em;
   }
 </style>
