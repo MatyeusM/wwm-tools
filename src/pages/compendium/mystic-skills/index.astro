@@ -1,6 +1,7 @@
 ---
-import Layout from '@/layouts/Layout.astro'
-import Header from '@/components/generic/Header.astro'
+import Layout from '@/layouts/layout.astro'
+import Header from '@/components/generic/header.astro'
+import type { MysticSkill } from '@/types/mystic-skill'
 
 export const meta = {
   icon: 'fa6-solid:scroll',
@@ -29,20 +30,18 @@ const CATEGORY_ORDER = [
 const skillFiles = import.meta.glob('@/wwm-data/mystic-skills/*.yaml', { eager: true })
 
 const skills = Object.entries(skillFiles).map(([path, data]) => {
-  const slug = path.split('/').pop()?.replace('.yaml', '')
-  return { ...(data as any), slug }
+  const slug = path.split('/').pop()?.replace('.yaml', '') ?? 'unknown'
+  return { ...(data as MysticSkill), slug }
 })
 
-const groupedSkills = CATEGORY_ORDER.reduce(
-  (acc, category) => {
-    const categorySkills = skills.filter(skill => skill.category === category)
-    if (categorySkills.length > 0) {
-      acc[category] = categorySkills
-    }
-    return acc
-  },
-  {} as Record<string, typeof skills>,
-)
+const groupedSkills: Record<string, MysticSkill[]> = {}
+
+for (const category of CATEGORY_ORDER) {
+  const categorySkills = skills.filter(skill => skill.category === category)
+  if (categorySkills.length > 0) {
+    groupedSkills[category] = categorySkills
+  }
+}
 
 // Handle any skills with categories not in the predefined list
 const otherSkills = skills.filter(skill => !CATEGORY_ORDER.includes(skill.category))
@@ -58,7 +57,7 @@ if (otherSkills.length > 0) {
     <div class="compendium__content">
       {
         Object.entries(groupedSkills).map(([category, categorySkills]) => (
-          <section class="category-block" id={category.toLowerCase().replace(/\s+/g, '-')}>
+          <section class="category-block" id={category.toLowerCase().replaceAll(/\s+/g, '-')}>
             <div class="category-header">
               <h2 class="category-title">{category}</h2>
               <span class="category-count">

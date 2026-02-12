@@ -1,7 +1,7 @@
 ---
 // src/pages/about/index.astro
-import Layout from '@/layouts/Layout.astro'
-import Header from '@/components/generic/Header.astro'
+import Layout from '@/layouts/layout.astro'
+import Header from '@/components/generic/header.astro'
 import licenses from '@/assets/images/licenses.yaml'
 
 interface LicenseImage {
@@ -48,7 +48,7 @@ export const meta = {
       <h2>Image Credits</h2>
       <div class="credits-list">
         {
-          licenses.images.map((img: LicenseImage) => (
+          (licenses as { images: LicenseImage[] }).images.map((img: LicenseImage) => (
             <div class="credit-item">
               <p>
                 <strong>"{img.title}"</strong> by{' '}

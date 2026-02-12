@@ -1,5 +1,4 @@
 ---
-import { Icon } from 'astro-icon/components'
 import { Image } from 'astro:assets'
 import logo from '@/assets/logo-dark.png'
 ---
@@ -82,17 +81,17 @@ import logo from '@/assets/logo-dark.png'
 </style>
 
 <script>
-  const path = window.location.pathname
+  const path = globalThis.location.pathname
   const first = path.split('/')[1] || ''
 
   const links = document.querySelectorAll('header nav a')
 
-  links.forEach(link => {
+  for (const link of links) {
     const href = link.getAttribute('href') || '/'
     const key = href.split('/')[1] || ''
 
     if (key === first) {
       link.classList.add('active')
     }
-  })
+  }
 </script>

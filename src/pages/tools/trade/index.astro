@@ -1,6 +1,6 @@
 ---
-import Layout from '@/layouts/Layout.astro'
-import Header from '@/components/generic/Header.astro'
+import Layout from '@/layouts/layout.astro'
+import Header from '@/components/generic/header.astro'
 
 export const meta = {
   icon: 'fa6-solid:coins',
@@ -72,9 +72,9 @@ export const meta = {
 <script>
   import { StateManager } from '@/lib/state-manager'
   import { updateTable, type TableElements } from './render-table'
-  import { optimizeWealth, calculateFactor } from './optimizer'
+  import { optimizeWealth, calculateFactor, type OptimizationResult } from './optimizer'
 
-  const initialState = new Map<string, any>([
+  const initialState = new Map<string, unknown>([
     ['taxLevel', 0],
     ['saleBonusRank', 0],
     ['flexMode', true], // true: NG_TO_GUILD, false: GUILD_TO_NG
@@ -83,39 +83,43 @@ export const meta = {
   const state = new StateManager(initialState, 'trade-state')
 
   // DOM Elements
-  const taxInput = document.getElementById('tax-level') as HTMLInputElement
-  const bonusInput = document.getElementById('bonus-level') as HTMLInputElement
-  const jadeInput = document.getElementById('wonder-jades') as HTMLInputElement
-  const optimizeBtn = document.getElementById('optimize-btn')
+  const taxInput = document.querySelector('#tax-level') as HTMLInputElement
+  const bonusInput = document.querySelector('#bonus-level') as HTMLInputElement
+  const jadeInput = document.querySelector('#wonder-jades') as HTMLInputElement
+  const optimizeButton = document.querySelector('#optimize-btn')
   const tableElements: TableElements = {
     tableBody: document.querySelector('#results-table tbody')!,
-    shiftingHeaderBtn: document.getElementById('shifting-header-btn')!,
-    headerText: document.getElementById('header-text')!,
-    guildProfitHeader: document.getElementById('guild-profit-header')!,
+    shiftingHeaderBtn: document.querySelector('#shifting-header-btn')!,
+    headerText: document.querySelector('#header-text')!,
+    guildProfitHeader: document.querySelector('#guild-profit-header')!,
   }
-  const overlay = document.getElementById('optimizer-overlay')!
-  const overlayText = document.getElementById('optimizer-results-text')!
-  const closeOverlay = document.getElementById('close-overlay')!
-  const applyOptimize = document.getElementById('apply-optimize')!
+  const overlay = document.querySelector('#optimizer-overlay')!
+  const overlayText = document.querySelector('#optimizer-results-text')!
+  const closeOverlay = document.querySelector('#close-overlay')!
+  const applyOptimize = document.querySelector('#apply-optimize')!
 
-  let pendingOptimization: any = null
+  let pendingOptimization: OptimizationResult | undefined
 
   // Initialize inputs from state
-  taxInput.value = state.get('taxLevel')
-  bonusInput.value = state.get('saleBonusRank')
+  taxInput.value = (state.get('taxLevel') as number).toString()
+  bonusInput.value = (state.get('saleBonusRank') as number).toString()
 
   // Event Listeners
-  taxInput.oninput = () => state.set('taxLevel', parseInt(taxInput.value) || 0)
-  bonusInput.oninput = () => state.set('saleBonusRank', parseInt(bonusInput.value) || 0)
+  taxInput.addEventListener('input', () =>
+    state.set('taxLevel', Number.parseInt(taxInput.value) || 0),
+  )
+  bonusInput.addEventListener('input', () =>
+    state.set('saleBonusRank', Number.parseInt(bonusInput.value) || 0),
+  )
 
-  tableElements.shiftingHeaderBtn.onclick = () => {
+  tableElements.shiftingHeaderBtn.addEventListener('click', () => {
     state.set('flexMode', !state.get('flexMode'))
-  }
+  })
 
-  optimizeBtn!.onclick = () => {
-    const startTax = state.get('taxLevel')
-    const startBonus = state.get('saleBonusRank')
-    const jades = parseInt(jadeInput.value) || 0
+  optimizeButton!.addEventListener('click', () => {
+    const startTax = state.get('taxLevel') as number
+    const startBonus = state.get('saleBonusRank') as number
+    const jades = Number.parseInt(jadeInput.value) || 0
     const result = optimizeWealth(jades, startTax, startBonus)
 
     if (result.usedJades === 0) return
@@ -136,18 +140,18 @@ export const meta = {
       <p><small>(Profit Factor: ${(currentFactor * 100).toFixed(2)}%)</small></p>
     `
     overlay.classList.remove('hidden')
-  }
+  })
 
-  closeOverlay.onclick = () => overlay.classList.add('hidden')
-  applyOptimize.onclick = () => {
+  closeOverlay.addEventListener('click', () => overlay.classList.add('hidden'))
+  applyOptimize.addEventListener('click', () => {
     if (pendingOptimization) {
       state.set('taxLevel', pendingOptimization.bestTaxLevel)
       state.set('saleBonusRank', pendingOptimization.bestBonusLevel)
-      taxInput.value = pendingOptimization.bestTaxLevel
-      bonusInput.value = pendingOptimization.bestBonusLevel
+      taxInput.value = pendingOptimization.bestTaxLevel.toString()
+      bonusInput.value = pendingOptimization.bestBonusLevel.toString()
     }
     overlay.classList.add('hidden')
-  }
+  })
 
   // State Subscription
   state.subscribe(s => {

@@ -1,15 +1,15 @@
 ---
 import { Icon } from 'astro-icon/components'
-import Card from '../generic/Card.astro'
+import Card from '../generic/card.astro'
 
-interface Props {
+interface Properties {
   title: string
   description: string
   link: string
   linkText: string
 }
 
-const { title, description, link, linkText } = Astro.props
+const { title, description, link, linkText } = Astro.props as Properties
 ---
 
 <Card hover={true}>

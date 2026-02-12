@@ -1,6 +1,6 @@
 ---
 import { readdirSync, statSync } from 'node:fs'
-import { join } from 'node:path'
+import path from 'node:path'
 
 const buildTimestamp = Date.now()
 const version = import.meta.env.npm_package_version
@@ -8,11 +8,13 @@ const version = import.meta.env.npm_package_version
 /* -------------------------
    Count tools
    ------------------------- */
-const toolsDir = './src/pages/tools'
+const toolsDirectory = './src/pages/tools'
 
 let toolsCount = 0
 try {
-  toolsCount = readdirSync(toolsDir, { withFileTypes: true }).filter(d => d.isDirectory()).length
+  toolsCount = readdirSync(toolsDirectory, { withFileTypes: true }).filter(d =>
+    d.isDirectory(),
+  ).length
 } catch {
   toolsCount = 0
 }
@@ -20,11 +22,11 @@ try {
 /* -------------------------
    Archive size (all md/yaml in /src)
    ------------------------- */
-function getArchiveSize(dir: string): number {
+function getArchiveSize(directory: string): number {
   let total = 0
 
-  for (const entry of readdirSync(dir, { withFileTypes: true })) {
-    const full = join(dir, entry.name)
+  for (const entry of readdirSync(directory, { withFileTypes: true })) {
+    const full = path.join(directory, entry.name)
 
     if (entry.isDirectory()) {
       total += getArchiveSize(full)
@@ -122,10 +124,10 @@ const archiveKB = Math.round(archiveBytes / 1024)
     const seconds = Math.floor((now - timestamp) / 1000)
 
     const intervals: Record<string, number> = {
-      year: 31536000,
-      month: 2592000,
-      week: 604800,
-      day: 86400,
+      year: 31_536_000,
+      month: 2_592_000,
+      week: 604_800,
+      day: 86_400,
       hour: 3600,
       minute: 60,
     }
@@ -139,11 +141,11 @@ const archiveKB = Math.round(archiveBytes / 1024)
     return 'Updated just now'
   }
 
-  const display = document.getElementById('build-date-display')
+  const display = document.querySelector('#build-date-display')
   if (display instanceof HTMLElement) {
     const timestamp = display.dataset.timestamp
     if (timestamp) {
-      const buildTime = parseInt(timestamp, 10)
+      const buildTime = Number.parseInt(timestamp, 10)
       display.textContent = timeAgo(buildTime)
     }
   }

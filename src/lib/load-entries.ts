@@ -8,8 +8,8 @@ export function loadEntries(): Entry[] {
 
   const entries: Entry[] = []
 
-  for (const [path, mod] of Object.entries(modules)) {
-    const meta = (mod as any).meta
+  for (const [path, module_] of Object.entries(modules)) {
+    const meta = (module_ as { meta?: unknown }).meta
     if (!meta) continue
 
     const parsed = EntryMetaSchema.safeParse(meta)

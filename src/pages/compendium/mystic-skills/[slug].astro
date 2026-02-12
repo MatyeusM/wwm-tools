@@ -1,16 +1,17 @@
 ---
-import Layout from '@/layouts/Layout.astro'
+import Layout from '@/layouts/layout.astro'
+import type { MysticSkill, TierBonus } from '@/types/mystic-skill'
 
 export async function getStaticPaths() {
   const skillFiles = import.meta.glob('@/wwm-data/mystic-skills/*.yaml', { eager: true })
 
   return Object.entries(skillFiles).map(([path, data]) => {
     const slug = path.split('/').pop()?.replace('.yaml', '')
-    return { params: { slug }, props: { skill: data } }
+    return { params: { slug }, props: { skill: { ...(data as MysticSkill), slug } } }
   })
 }
 
-const { skill } = Astro.props as { skill: any }
+const { skill } = Astro.props as { skill: MysticSkill }
 ---
 
 <Layout>
@@ -47,7 +48,7 @@ const { skill } = Astro.props as { skill: any }
           <section class="tier-bonuses">
             <h2>Tier Bonuses</h2>
             <div class="bonuses-grid">
-              {skill.tier_bonuses.map((bonus: any) => (
+              {skill.tier_bonuses.map((bonus: TierBonus) => (
                 <div class="bonus-card">
                   <span class="tier">Tier {bonus.tier}</span>
                   <p>{bonus.effect}</p>

@@ -8,8 +8,8 @@ export interface Rank {
   cost: { item: string; amount: number }[]
 }
 
-export const taxes: Rank[] = salesTaxData.technique.ranks
-export const bonuses: Rank[] = salesBonusData.technique.ranks
+export const taxes: Rank[] = (salesTaxData as { technique: { ranks: Rank[] } }).technique.ranks
+export const bonuses: Rank[] = (salesBonusData as { technique: { ranks: Rank[] } }).technique.ranks
 
 export interface OptimizationResult {
   bestTaxLevel: number
@@ -38,15 +38,10 @@ export function optimizeWealth(
 
       if (totalCost <= availableJades) {
         const factor = calculateFactor(t, b)
-        if (factor > bestResult.profitFactor) {
-          bestResult = {
-            bestTaxLevel: t,
-            bestBonusLevel: b,
-            usedJades: totalCost,
-            profitFactor: factor,
-          }
-        } else if (factor === bestResult.profitFactor && totalCost < bestResult.usedJades) {
-          // If factors are equal, prefer the cheaper path
+        if (
+          factor > bestResult.profitFactor ||
+          (factor === bestResult.profitFactor && totalCost < bestResult.usedJades)
+        ) {
           bestResult = {
             bestTaxLevel: t,
             bestBonusLevel: b,
@@ -63,9 +58,9 @@ export function optimizeWealth(
 
 function getCumulativeCost(startL: number, endL: number, data: Rank[]): number {
   let total = 0
-  for (let i = startL; i < endL; i++) {
+  for (let index = startL; index < endL; index++) {
     // Rank 1 is at index 0
-    const nextRank = data[i]
+    const nextRank = data[index]
     if (nextRank) {
       const jadeCost = nextRank.cost.find(c => c.item === 'Wonder Jade')
       if (jadeCost) total += jadeCost.amount

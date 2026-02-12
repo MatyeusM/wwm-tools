@@ -1,12 +1,12 @@
 ---
 // src/pages/tools/index.astro
-import Layout from '@/layouts/Layout.astro'
-import FeatureCard from '@/components/landing/FeatureCard.astro'
-import Header from '@/components/generic/Header.astro'
+import Layout from '@/layouts/layout.astro'
+import FeatureCard from '@/components/landing/feature-card.astro'
+import Header from '@/components/generic/header.astro'
 import { loadEntries } from '@/lib/load-entries'
 
 const entries = loadEntries()
-const tools = entries.filter(e => e.type === 'tool')
+const tools = entries.filter(entry => entry.type === 'tool')
 ---
 
 <Layout>

@@ -8,11 +8,11 @@ export interface TableElements {
   guildProfitHeader: HTMLElement
 }
 
-export function updateTable(s: Map<string, any>, elements: TableElements) {
+export function updateTable(s: Map<string, unknown>, elements: TableElements) {
   const { tableBody, shiftingHeaderBtn, headerText, guildProfitHeader } = elements
-  const taxL = s.get('taxLevel')
-  const bonusL = s.get('saleBonusRank')
-  const mode = s.get('flexMode')
+  const taxL = s.get('taxLevel') as number
+  const bonusL = s.get('saleBonusRank') as number
+  const mode = s.get('flexMode') as boolean
 
   const factorG = calculateFactor(taxL, bonusL)
   const factorN = 1 - BASE_MARKET_TAX
@@ -35,26 +35,21 @@ export function updateTable(s: Map<string, any>, elements: TableElements) {
     const profitN = baseFactor * factorN
     const profitG = baseFactor * factorG
 
-    let flexVal = 0
-    if (mode) {
-      flexVal = (baseFactor * factorN) / factorG - 1
-    } else {
-      flexVal = (baseFactor * factorG) / factorN - 1
-    }
+    const flexValue = mode
+      ? (baseFactor * factorN) / factorG - 1
+      : (baseFactor * factorG) / factorN - 1
 
     const row = document.createElement('tr')
 
-    const flexCell = `<td><strong>+${(flexVal * 100).toFixed(1)}%</strong></td>`
+    const flexCell = `<td><strong>+${(flexValue * 100).toFixed(1)}%</strong></td>`
     const guildCell = `<td>+${((profitG - 1) * 100).toFixed(1)}%</td>`
     const nonGuildCell = `<td>+${((profitN - 1) * 100).toFixed(1)}%</td>`
     const baseCell = `<td>+${p}%</td>`
 
-    if (mode) {
-      row.innerHTML = `${baseCell}${nonGuildCell}${flexCell}${guildCell}`
-    } else {
-      row.innerHTML = `${baseCell}${nonGuildCell}${guildCell}${flexCell}`
-    }
+    row.innerHTML = mode
+      ? `${baseCell}${nonGuildCell}${flexCell}${guildCell}`
+      : `${baseCell}${nonGuildCell}${guildCell}${flexCell}`
 
-    tableBody.appendChild(row)
+    tableBody.append(row)
   }
 }

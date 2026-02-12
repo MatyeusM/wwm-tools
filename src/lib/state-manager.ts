@@ -3,7 +3,7 @@ import { MessagePackEncoder, MessagePackDecoder } from '@jsonjoy.com/json-pack/l
 const encoder = new MessagePackEncoder()
 const decoder = new MessagePackDecoder()
 
-export type State = Map<string, any>
+export type State = Map<string, unknown>
 type Subscriber = (state: State) => void
 
 /**
@@ -11,22 +11,25 @@ type Subscriber = (state: State) => void
  */
 function toBase64(bytes: Uint8Array): string {
   let binary = ''
-  const len = bytes.byteLength
-  for (let i = 0; i < len; i++) {
-    binary += String.fromCharCode(bytes[i])
+  const length = bytes.byteLength
+  for (let index = 0; index < length; index++) {
+    binary += String.fromCodePoint(bytes[index])
   }
-  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+  return btoa(binary)
+    .replaceAll('+', '-')
+    .replaceAll('/', '_')
+    .replace(/={0,2}$/, '')
 }
 
 /**
  * Converts a URL-safe Base64 string back to a Uint8Array.
  */
 function fromBase64(base64: string): Uint8Array {
-  const normalized = base64.replace(/-/g, '+').replace(/_/g, '/')
+  const normalized = base64.replaceAll('-', '+').replaceAll('_', '/')
   const binary = atob(normalized)
   const bytes = new Uint8Array(binary.length)
-  for (let i = 0; i < binary.length; i++) {
-    bytes[i] = binary.charCodeAt(i)
+  for (let index = 0; index < binary.length; index++) {
+    bytes[index] = binary.codePointAt(index) ?? 0
   }
   return bytes
 }
@@ -37,7 +40,7 @@ export class StateManager {
   private subs = new Set<Subscriber>()
   private storageKey: string
   private committing = false
-  private commitTimeout: any = null
+  private commitTimeout: ReturnType<typeof setTimeout> | undefined = undefined
 
   constructor(initial: State, storageKey = 'state') {
     this.storageKey = storageKey
@@ -65,13 +68,13 @@ export class StateManager {
     this.commit()
   }
 
-  subscribe(fn: Subscriber): () => void {
-    this.subs.add(fn)
-    return () => this.subs.delete(fn)
+  subscribe(function_: Subscriber): () => void {
+    this.subs.add(function_)
+    return () => this.subs.delete(function_)
   }
 
-  get<T = any>(key: string): T {
-    return this.state.get(key)
+  get<T = unknown>(key: string): T {
+    return this.state.get(key) as T
   }
 
   set<T>(key: string, value: T) {
@@ -98,21 +101,21 @@ export class StateManager {
     return toBase64(binary)
   }
 
-  private decodeValues(encoded: string): State | null {
+  private decodeValues(encoded: string): State | undefined {
     try {
       const bytes = fromBase64(encoded)
-      const values = decoder.decode(bytes) as any[]
-      const m = new Map<string, any>()
+      const values = decoder.decode(bytes) as unknown[]
+      const m = new Map<string, unknown>()
 
-      for (let i = 0; i < this.keys.length; i++) {
-        if (i < values.length) {
-          m.set(this.keys[i], values[i])
+      for (let index = 0; index < this.keys.length; index++) {
+        if (index < values.length) {
+          m.set(this.keys[index], values[index])
         }
       }
 
       return m
     } catch {
-      return null
+      return undefined
     }
   }
 
@@ -124,13 +127,13 @@ export class StateManager {
       const encoded = this.encodeValues()
 
       // 1. Debounce URL updates to prevent browser throttling
-      clearTimeout(this.commitTimeout)
+      clearTimeout(this.commitTimeout ?? undefined)
       this.commitTimeout = setTimeout(() => {
-        history.replaceState(null, '', '#' + encoded)
+        history.replaceState(undefined, '', '#' + encoded)
       }, 100)
 
       // 2. Sync LocalStorage immediately (fast)
-      const plain: Record<string, any> = {}
+      const plain: Record<string, unknown> = {}
       for (const [k, v] of this.state) plain[k] = v
       localStorage.setItem(this.storageKey, JSON.stringify(plain))
 
@@ -140,18 +143,18 @@ export class StateManager {
     }
   }
 
-  private loadFromUrl(): State | null {
+  private loadFromUrl(): State | undefined {
     const h = location.hash.slice(1)
-    if (!h) return null
+    if (!h) return undefined
     return this.decodeValues(h)
   }
 
-  private loadFromLocalStorage(): State | null {
+  private loadFromLocalStorage(): State | undefined {
     const raw = localStorage.getItem(this.storageKey)
-    if (!raw) return null
+    if (!raw) return undefined
     try {
       const parsed = JSON.parse(raw)
-      const m = new Map<string, any>()
+      const m = new Map<string, unknown>()
       for (const k of Object.keys(parsed)) {
         if (this.keys.includes(k)) {
           m.set(k, parsed[k])
@@ -159,23 +162,22 @@ export class StateManager {
       }
       return m
     } catch {
-      return null
+      return undefined
     }
   }
 
   private wrapDeep<T>(value: T): T {
     if (!value || typeof value !== 'object') return value
 
-    const self = this
-    const handler: ProxyHandler<any> = {
-      set(target, prop, val) {
-        target[prop] = self.wrapDeep(val)
-        self.commit()
+    const handler: ProxyHandler<object> = {
+      set: (target, property, value_) => {
+        ;(target as Record<string | symbol, unknown>)[property] = this.wrapDeep(value_)
+        this.commit()
         return true
       },
-      deleteProperty(target, prop) {
-        delete target[prop]
-        self.commit()
+      deleteProperty: (target, property) => {
+        delete (target as Record<string | symbol, unknown>)[property]
+        this.commit()
         return true
       },
     }
@@ -184,13 +186,13 @@ export class StateManager {
       return new Proxy(
         value.map(v => this.wrapDeep(v)),
         handler,
-      ) as any
+      ) as T
     }
 
-    const obj: any = {}
-    for (const k of Object.keys(value as any)) {
-      obj[k] = this.wrapDeep((value as any)[k])
+    const object: Record<string, unknown> = {}
+    for (const k of Object.keys(value as object)) {
+      object[k] = this.wrapDeep((value as Record<string, unknown>)[k])
     }
-    return new Proxy(obj, handler)
+    return new Proxy(object, handler) as T
   }
 }

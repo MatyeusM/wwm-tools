@@ -63,16 +63,15 @@ const copyrightYear = new Date().getFullYear()
 </footer>
 
 <script>
-  document.querySelectorAll('[data-copy]').forEach(el => {
-    let resetTimer: ReturnType<typeof setTimeout> | null = null
-
-    el.addEventListener('click', () => {
-      const value = el.getAttribute('data-copy')
+  for (const element of document.querySelectorAll<HTMLElement>('[data-copy]')) {
+    let resetTimer: ReturnType<typeof setTimeout> | undefined
+    element.addEventListener('click', () => {
+      const value = element.dataset.copy
       if (!value) return
 
       navigator.clipboard.writeText(value)
 
-      const tooltip = el.querySelector('.tooltip')
+      const tooltip = element.querySelector('.tooltip')
       if (!tooltip) return
 
       const originalText = tooltip.innerHTML
@@ -84,7 +83,7 @@ const copyrightYear = new Date().getFullYear()
         tooltip.innerHTML = originalText
       }, 1200)
     })
-  })
+  }
 </script>
 
 <style lang="scss">

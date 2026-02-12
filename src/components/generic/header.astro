@@ -1,13 +1,13 @@
 ---
 // src/components/generic/PageHeader.astro
-interface Props {
+interface Properties {
   title: string
   description?: string
   centered?: boolean
   variant?: 'default' | 'large'
 }
 
-const { title, description, centered = true, variant = 'default' } = Astro.props
+const { title, description, centered = true, variant = 'default' } = Astro.props as Properties
 ---
 
 <header class:list={['page-header', variant, { centered }]}>
