@@ -1,0 +1,23 @@
+@use 'sass:map';
+
+$text-color-map: (
+  default: var(--color-text),
+  muted: var(--color-text-muted),
+  primary: var(--color-text-primary),
+  on-primary: var(--color-text-on-primary),
+  on-secondary: var(--color-text-on-secondary),
+  success: var(--success),
+  error: var(--error),
+);
+
+@function get-text-color($variant: default) {
+  @if not map.has-key($text-color-map, $variant) {
+    @error "Invalid text variant `#{$variant}`. Allowed: #{map.keys($text-color-map)}.";
+  }
+
+  @return map.get($text-color-map, $variant);
+}
+
+@mixin text-color($variant: default) {
+  color: get-text-color($variant);
+}

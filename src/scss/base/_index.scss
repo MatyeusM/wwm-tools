@@ -1,0 +1,19 @@
+@use '../mixins' as *;
+@forward 'variables';
+@forward 'headings';
+@forward 'form';
+@forward 'table';
+
+body {
+  min-height: 100vh;
+  @include font-sans-regular;
+  @include background(surface-0);
+  @include text-color(default);
+}
+
+main {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-inline: 5rem;
+  padding-block: 3rem;
+}

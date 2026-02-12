@@ -1,0 +1,208 @@
+---
+import Layout from '@/layouts/Layout.astro'
+
+export async function getStaticPaths() {
+  const skillFiles = import.meta.glob('@/wwm-data/mystic-skills/*.yaml', { eager: true })
+
+  return Object.entries(skillFiles).map(([path, data]) => {
+    const slug = path.split('/').pop()?.replace('.yaml', '')
+    return { params: { slug }, props: { skill: data } }
+  })
+}
+
+const { skill } = Astro.props as { skill: any }
+---
+
+<Layout>
+  <div class="skill-detail">
+    <header class="skill-detail__header">
+      <div class="header-main">
+        <span class="category-badge">{skill.category}</span>
+        <h1>{skill.name}</h1>
+        <div class="tags">
+          {skill.tags?.map((tag: string) => <span class="tag">{tag}</span>)}
+        </div>
+      </div>
+
+      <div class="header-meta">
+        <div class="meta-item">
+          <span class="label">Vitality Cost</span>
+          <span class="value">{skill.vitality_cost}</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Cooldown</span>
+          <span class="value">{skill.cooldown}</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="skill-detail__content">
+      <section class="description-section">
+        <h2>Description</h2>
+        <p>{skill.description}</p>
+      </section>
+
+      {
+        skill.tier_bonuses && (
+          <section class="tier-bonuses">
+            <h2>Tier Bonuses</h2>
+            <div class="bonuses-grid">
+              {skill.tier_bonuses.map((bonus: any) => (
+                <div class="bonus-card">
+                  <span class="tier">Tier {bonus.tier}</span>
+                  <p>{bonus.effect}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )
+      }
+    </div>
+  </div>
+</Layout>
+
+<style lang="scss">
+  @use '../../../scss/mixins' as *;
+
+  .skill-detail {
+    padding: 4rem 1.5rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .skill-detail__header {
+    margin-bottom: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 2rem;
+    @include border($bottom: true);
+    padding-bottom: 2rem;
+
+    .category-badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+
+      @include background(below-primary);
+      @include text-color(primary);
+
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      @include font-display-black;
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin: 0 0 1rem 0;
+      @include text-color(default);
+    }
+
+    .tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 0.85rem;
+      @include text-color(muted);
+      &::before {
+        content: '#';
+      }
+    }
+  }
+
+  .header-meta {
+    display: flex;
+    gap: 3rem;
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      @include increase-letter-spacing(0.5);
+      @include text-color(muted);
+      font-weight: 600;
+    }
+
+    .value {
+      @include font-size(lg);
+      font-weight: 700;
+      @include text-color(primary);
+    }
+  }
+
+  .skill-detail__content {
+    h2 {
+      @include font-display-bold;
+      @include font-size(2xl);
+      margin: 0 0 1.5rem 0;
+      @include text-color(default);
+    }
+
+    section {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .description-section {
+    p {
+      @include font-size(lg);
+      line-height: 1.8;
+      @include text-color(muted);
+      white-space: pre-wrap;
+    }
+  }
+
+  .bonuses-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .bonus-card {
+    @include background(surface-1);
+
+    // Custom thick border using helper function
+    border-left: 4px solid get-border-color(primary);
+
+    padding: 1.5rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+
+    .tier {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 800;
+      @include text-color(primary);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    p {
+      margin: 0;
+      @include text-color(default);
+      line-height: 1.5;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .skill-detail__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+
+    .header-meta {
+      width: 100%;
+      justify-content: flex-start;
+      gap: 3rem;
+    }
+  }
+</style>

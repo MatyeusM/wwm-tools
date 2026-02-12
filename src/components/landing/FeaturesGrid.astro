@@ -1,0 +1,70 @@
+---
+import FeatureCard from '@/components/landing/FeatureCard.astro'
+import { loadEntries } from '@/lib/load-entries'
+
+const entries = loadEntries()
+
+const features = entries
+  .sort(
+    (a, b) =>
+      new Date(b.updatedDate ?? b.createdDate).getTime() -
+      new Date(a.updatedDate ?? a.createdDate).getTime(),
+  )
+  .slice(0, 8)
+---
+
+<div class="header">
+  <h2>Essential Tools</h2>
+  <p>The artifacts you need for your journey</p>
+</div>
+
+<section>
+  {
+    features.map(entry => (
+      <FeatureCard
+        title={entry.title}
+        description={entry.description}
+        link={entry.link}
+        linkText={entry.linkText}
+      />
+    ))
+  }
+</section>
+
+<style lang="scss">
+  @use '@/scss/mixins' as *;
+
+  section {
+    display: grid;
+    margin-bottom: 4rem;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+    @include border($bottom: true);
+    padding-bottom: 1.5rem;
+  }
+
+  h2 {
+    @include font-display-bold;
+    @include font-size(2xl);
+    @include increase-letter-spacing;
+  }
+
+  p {
+    @include text-color(muted);
+    margin-top: 0.25rem;
+  }
+</style>

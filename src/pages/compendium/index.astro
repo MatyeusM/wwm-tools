@@ -1,0 +1,54 @@
+---
+// src/pages/compendium/index.astro
+import Layout from '@/layouts/Layout.astro'
+import FeatureCard from '@/components/landing/FeatureCard.astro'
+import Header from '@/components/generic/Header.astro'
+import { loadEntries } from '@/lib/load-entries'
+
+const entries = loadEntries()
+const items = entries.filter(e => e.type === 'compendium')
+---
+
+<Layout>
+  <div class="compendium-container">
+    <Header
+      title="Compendium"
+      description="A curated record of known items, skills, and techniques."
+    />
+
+    <section class="grid">
+      {
+        items.map(item => (
+          <FeatureCard
+            title={item.title}
+            description={item.description}
+            link={item.link}
+            linkText={item.linkText}
+          />
+        ))
+      }
+    </section>
+  </div>
+</Layout>
+
+<style lang="scss">
+  @use '@/scss/mixins' as *;
+
+  .compendium-container {
+    padding: 3rem 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

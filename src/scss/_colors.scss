@@ -1,0 +1,67 @@
+@use 'sass:map';
+@use 'sass:math';
+@use 'sass:color';
+
+@function round-decimals($number, $places: 2) {
+  $factor: math.pow(10, $places);
+  @return math.div(math.round($number * $factor), $factor);
+}
+
+@function createColorMap($inputColor) {
+  $result-map: ();
+  $oklch-base: color.to-space($inputColor, oklch);
+  $lightness-base: color.channel($oklch-base, 'lightness');
+  $start: math.round(math.div($lightness-base, 5));
+
+  @for $i from 1 through 19 {
+    $step: $i * 50;
+    $offset: ($i - $start) * 5;
+    $new-lightness: math.clamp(0%, $lightness-base + $offset, 100%);
+
+    $variant: color.adjust($oklch-base, $lightness: $new-lightness - $lightness-base);
+    $correctedVariant: color.to-gamut($variant, rgb, $method: local-minde);
+
+    $rounded-lightness: round-decimals(
+      color.channel($correctedVariant, 'lightness', $space: oklch),
+      3
+    );
+    $rounded-chroma: round-decimals(color.channel($correctedVariant, 'chroma', $space: oklch), 3);
+    $rounded-hue: round-decimals(color.channel($correctedVariant, 'hue', $space: oklch));
+
+    $result-map: map.set(
+      $result-map,
+      $step,
+      color.change(
+        $correctedVariant,
+        $lightness: $rounded-lightness,
+        $chroma: $rounded-chroma,
+        $hue: $rounded-hue,
+        $space: oklch
+      )
+    );
+  }
+
+  @return $result-map;
+}
+
+$colors: (
+  'primary': createColorMap(oklch(0.75 0.1 70)),
+  'secondary': createColorMap(oklch(0.4 0.12 30)),
+  'neutral': createColorMap(oklch(0.5 0.01 70)),
+  'success': createColorMap(oklch(0.6 0.13 150)),
+  'error': createColorMap(oklch(0.6 0.17 20)),
+);
+
+@function color($name, $step: 500) {
+  @if not map.has-key($colors, $name) {
+    @error "Unknown color `#{$name}`.";
+  }
+
+  $scale: map.get($colors, $name);
+
+  @if not map.has-key($scale, $step) {
+    @error "Unknown step `#{$step}` for color `#{$name}`.";
+  }
+
+  @return map.get($scale, $step);
+}

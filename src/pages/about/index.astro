@@ -1,0 +1,134 @@
+---
+// src/pages/about/index.astro
+import Layout from '@/layouts/Layout.astro'
+import Header from '@/components/generic/Header.astro'
+import licenses from '@/assets/images/licenses.yaml'
+
+interface LicenseImage {
+  file: string
+  author: string
+  title: string
+  source: string
+  license: { name: string; url: string }
+  modifications?: string
+}
+
+export const meta = {
+  title: 'About the Project',
+  description: 'Learn more about the motivation and assets behind WWM Tools.',
+}
+---
+
+<Layout>
+  <div class="about-container">
+    <Header title="About WWM Tools" description="A chronicle of intent and attribution." />
+
+    <section class="content-section motivation">
+      <h2>Motivation</h2>
+      <div class="prose">
+        <p>
+          WWM Tools started as a personal frustration: many useful resources for the game are
+          obscure, outdated, or barely usable. I wanted a reliable, curated place where tools and
+          guides are preserved, easy to access, and practical for reference without booting up the
+          game or building spreadsheets.
+        </p>
+        <p>
+          The project focuses on lasting content; everything here is meant for consistent lookup,
+          not temporary events or mechanics that disappear. By keeping the collection updated and
+          maintained, I ensure that both I and others can rely on it as a stable, usable reference
+          for essential in-game information.
+        </p>
+        <p>
+          My hope is that these resources help you in your decision-making as much as they help me.
+        </p>
+      </div>
+    </section>
+
+    <section class="content-section credits">
+      <h2>Image Credits</h2>
+      <div class="credits-list">
+        {
+          licenses.images.map((img: LicenseImage) => (
+            <div class="credit-item">
+              <p>
+                <strong>"{img.title}"</strong> by{' '}
+                <a href={img.source} target="_blank" rel="noopener noreferrer">
+                  {img.author}
+                </a>
+                , licensed under{' '}
+                <a href={img.license.url} target="_blank" rel="noopener noreferrer">
+                  {img.license.name}
+                </a>
+                .
+                {img.modifications && (
+                  <span class="modifications"> Modifications: {img.modifications}</span>
+                )}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style lang="scss">
+  @use '@/scss/mixins' as *;
+
+  .about-container {
+    padding: 3rem 0;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .content-section {
+    margin-bottom: 4rem;
+
+    h2 {
+      @include font-display-bold;
+      @include font-size(xl);
+      @include text-color(primary);
+      margin-bottom: 1.5rem;
+      @include border($bottom: true);
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  .prose {
+    p {
+      @include text-color(default);
+      @include font-size(base);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .credits-list {
+    .credit-item {
+      @include background(surface-1);
+      @include border;
+      padding: 1rem 1.5rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+
+      p {
+        @include font-size(sm);
+        @include text-color(muted);
+        margin: 0;
+      }
+
+      a {
+        @include text-color(primary);
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .modifications {
+        font-style: italic;
+        opacity: 0.8;
+      }
+    }
+  }
+</style>

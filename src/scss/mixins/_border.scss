@@ -1,0 +1,82 @@
+// Border Mixins
+@use 'sass:map';
+
+$border-width-map: (
+  normal: 0.0625rem,
+  thick: 0.125rem,
+);
+
+$border-color-map: (
+  outline: var(--outline),
+  primary: var(--color-text-primary),
+  transparent: transparent,
+  none: none,
+);
+
+@function get-border-color($variant: outline) {
+  @if not map.has-key($border-color-map, $variant) {
+    @error "Invalid border color `#{$variant}`. Allowed: #{map.keys($border-color-map)}.";
+  }
+  @return map.get($border-color-map, $variant);
+}
+
+@function get-border-width($width: normal) {
+  @if not map.has-key($border-width-map, $width) {
+    @error "Invalid border width `#{$width}`. Allowed: #{map.keys($border-width-map)}.";
+  }
+  @return map.get($border-width-map, $width);
+}
+
+@mixin border(
+  $width: normal,
+  $color: outline,
+  $style: solid,
+  $all: false,
+  $top: false,
+  $right: false,
+  $bottom: false,
+  $left: false
+) {
+  $w: get-border-width($width);
+  $c: get-border-color($color);
+
+  $any-side: $top or $right or $bottom or $left;
+
+  @if $c == none {
+    @if $all or not $any-side {
+      border: none;
+    } @else {
+      @if $top {
+        border-top: none;
+      }
+      @if $right {
+        border-right: none;
+      }
+      @if $bottom {
+        border-bottom: none;
+      }
+      @if $left {
+        border-left: none;
+      }
+    }
+  } @else {
+    $decl: #{$w} #{$style} #{$c};
+
+    @if $all or not $any-side {
+      border: $decl;
+    } @else {
+      @if $top {
+        border-top: $decl;
+      }
+      @if $right {
+        border-right: $decl;
+      }
+      @if $bottom {
+        border-bottom: $decl;
+      }
+      @if $left {
+        border-left: $decl;
+      }
+    }
+  }
+}

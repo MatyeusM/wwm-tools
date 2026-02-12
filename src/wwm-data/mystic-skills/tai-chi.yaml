@@ -1,0 +1,258 @@
+name: Tai Chi
+
+description: >
+  When used out of combat, this skill gathers fallen leaves in certain areas. When used on water, it
+  creates ripples that send fish leaping. In Hexi, you can use a shortcut key to reverse the state
+  of resonating objects, restoring them to their former condition. When used in combat: Pulls and
+  whirls the target, allowing you to aim by rotating the camera before hurling them for (Physical
+  Attack + Constant Physical + Other Attribute Damage) damage. Has bonus effects against
+  Shield-Bearing Enemies. Shield-Bearing Enemies: These units are protected from the front. When
+  pulled by Tai Chi, their shield is removed and they suffer large bonus (Physical Attack + Constant
+  Physical + Other Attribute Damage) damage.
+
+tier_bonuses:
+  - tier: 2
+    effect: Increased Phase-Two Shield Breaker Damage by 20% on Weak Point Break.
+  - tier: 3
+    effect: Reduces the target's defense by 20% for 10 seconds after Weak Point Break.
+  - tier: 4
+    effect: Further increases Phase-Two Shield Breaker Damage by 30% on Weak Point Break.
+  - tier: 5
+    effect: Recover 10 Vitality on Weak Point Break.
+
+tags:
+  - Tai Chi
+  - Shield Breaker
+category: Puzzle
+
+vitality_cost: 0
+cooldown: 12 seconds
+
+tiers:
+  has_tiers: true
+  starting_tier: 1
+  starting_rank: 0
+
+  rank_ups:
+    - tier: 1
+      ranks:
+        - rank: 0
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 1
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 2
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 3
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 4
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 5
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 6
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 7
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 8
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 9
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+
+    - tier: 2
+      ranks:
+        - rank: 0
+          cost:
+            - item: Vicious Fruit
+              amount: 5
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 1
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 2
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 3
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 4
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 5
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 6
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 7
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 8
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 9
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+
+    - tier: 3
+      ranks:
+        - rank: 0
+          cost:
+            - item: Vicious Fruit
+              amount: 15
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 1
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 2
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 3
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 4
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 5
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 6
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 7
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 8
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 9
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+
+    - tier: 4
+      ranks:
+        - rank: 0
+          cost:
+            - item: Vicious Fruit
+              amount: 18
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 1
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 2
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 3
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 4
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 5
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 6
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 7
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 8
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 9
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+
+    - tier: 5
+      ranks:
+        - rank: 0
+          cost:
+            - item: Vicious Fruit
+              amount: 28
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 1
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 2
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 3
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 4
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 5
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 6
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 7
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 8
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 9
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32

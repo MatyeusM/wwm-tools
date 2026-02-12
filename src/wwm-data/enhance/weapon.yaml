@@ -1,0 +1,49 @@
+- rank_ups:
+    - level: 36
+      cost:
+        - item: 'Howling Ore: Falcon'
+          amount: 3
+        - item: Oscillating Jade
+          amount: 50
+        - item: Raw Ore
+          amount: 25
+        - item: Coin
+          amount: 22500
+      requires:
+        - level: 81
+    - level: 37
+      cost:
+        - item: 'Howling Ore: Falcon'
+          amount: 3
+        - item: Oscillating Jade
+          amount: 50
+        - item: Raw Ore
+          amount: 25
+        - item: Coin
+          amount: 22500
+      requires:
+        - level: 81
+    - level: 38
+      cost:
+        - item: 'Howling Ore: Falcon'
+          amount: 3
+        - item: Oscillating Jade
+          amount: 50
+        - item: Raw Ore
+          amount: 25
+        - item: Coin
+          amount: 22500
+      requires:
+        - level: 81
+    - level: 39
+      cost:
+        - item: 'Howling Ore: Falcon'
+          amount: 3
+        - item: Oscillating Jade
+          amount: 50
+        - item: Raw Ore
+          amount: 25
+        - item: Coin
+          amount: 22500
+      requires:
+        - level: 81

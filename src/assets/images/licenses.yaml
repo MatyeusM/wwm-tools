@@ -1,0 +1,10 @@
+images:
+  - file: '1_tianzishan_wulingyuan_zhangjiajie_2012.jpg'
+    author: 'chensiyuan'
+    title:
+      'Panoramic view from Mount Tianzi Shan, Wulingyuan Zhangjiajie hunan China tujia miao 2012'
+    source: 'https://commons.wikimedia.org/wiki/File:1_tianzishan_wulingyuan_zhangjiajie_2012.jpg'
+    license:
+      name: 'Creative Commons Attribution-ShareAlike 4.0 International'
+      url: 'https://creativecommons.org/licenses/by-sa/4.0/'
+    modifications: 'reduced opacity for hero background on website'

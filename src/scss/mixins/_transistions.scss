@@ -1,0 +1,66 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:string';
+
+$transition-durations: (
+  short: 200ms,
+  medium: 300ms,
+  long: 500ms,
+);
+
+@mixin hover-transition(
+  $color: null,
+  $background-color: null,
+  $border-color: null,
+  $duration: medium,
+  $transition-timing-function: ease-in-out
+) {
+  $transition-properties: ();
+
+  // Resolve duration token → concrete time
+  $transition-duration: map.get($transition-durations, $duration);
+  @if $transition-duration == null {
+    @error "Invalid duration `#{$duration}`. Use: short, medium, long.";
+  }
+
+  @if $color {
+    $transition-properties: list.append($transition-properties, color);
+  }
+  @if $background-color {
+    $transition-properties: list.append($transition-properties, background-color);
+  }
+  @if $border-color {
+    $transition-properties: list.append($transition-properties, border-color);
+  }
+
+  @if list.length($transition-properties) > 0 {
+    $transition-string: '';
+    @each $property in $transition-properties {
+      $transition-string: $transition-string +
+        $property +
+        ' ' +
+        $transition-duration +
+        ' ' +
+        $transition-timing-function +
+        ', ';
+    }
+
+    $transition-string: string.slice($transition-string, 1, string.length($transition-string) - 2);
+
+    transition: string.unquote($transition-string);
+  }
+
+  cursor: pointer;
+
+  &:hover {
+    @if $color {
+      color: $color;
+    }
+    @if $background-color {
+      background-color: $background-color;
+    }
+    @if $border-color {
+      border-color: $border-color;
+    }
+  }
+}

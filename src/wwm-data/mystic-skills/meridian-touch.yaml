@@ -1,0 +1,259 @@
+name: Meridian Touch
+
+description: >
+  Out of combat: Select acupoints for a chance at special effects. Finger Technique: Success chance
+  depeneds on Finger Technique. Fleetfoot: Yangbai Point resistance. A successful strike
+  immobilizies the target. Clarity: Xiaohu Point resistance. A successful strike causes
+  uncontrollable laughter. Unfettered Flow: Quichi Point resistance. A successful strike causes
+  unbearable itching. In combat: There's a chance to immobilize enemies, deal (Physical Attack +
+  Constant Physical + Other Attribute Damage) damage, and destroy the target's Vital Spots.
+  Immbolize ineffective against mighty enemies. Vital Spots: These enemies have bound Qi bars.
+  Destroying their Vital Spots disables Qi regen and deals moderate extra (Physical Attack +
+  Constant Physical + Other Attribute Damage) damage and 12 Qi damage.
+
+tier_bonuses:
+  - tier: 2
+    effect: Increased bonus damage dealt by 20% on Weak Point Break.
+  - tier: 3
+    effect: Increases Qi damage taken by target by 20% for 10 seconds after Weak Point Break.
+  - tier: 4
+    effect: Further increases bonus damage dealt by 30% on Weak Point Break.
+  - tier: 5
+    effect: Recover 10 Vitality on Weak Point Break.
+
+tags:
+  - Acupoint Strike
+  - Qi Breaking
+category: Puzzle
+
+vitality_cost: 0
+cooldown: 10 seconds
+
+tiers:
+  has_tiers: true
+  starting_tier: 1
+  starting_rank: 0
+
+  rank_ups:
+    - tier: 1
+      ranks:
+        - rank: 0
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 1
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 2
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 3
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 4
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 5
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 6
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 7
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 8
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 9
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+
+    - tier: 2
+      ranks:
+        - rank: 0
+          cost:
+            - item: Beauty's Plume
+              amount: 5
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 1
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 2
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 3
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 4
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 5
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 6
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 7
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 8
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 9
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+
+    - tier: 3
+      ranks:
+        - rank: 0
+          cost:
+            - item: Beauty's Plume
+              amount: 15
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 1
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 2
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 3
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 4
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 5
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 6
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 7
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 8
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 9
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+
+    - tier: 4
+      ranks:
+        - rank: 0
+          cost:
+            - item: Beauty's Plume
+              amount: 18
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 1
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 2
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 3
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 4
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 5
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 6
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 7
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 8
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 9
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+
+    - tier: 5
+      ranks:
+        - rank: 0
+          cost:
+            - item: Beauty's Plume
+              amount: 28
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 1
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 2
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 3
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 4
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 5
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 6
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 7
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 8
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 9
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32

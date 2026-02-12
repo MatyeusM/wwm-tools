@@ -1,0 +1,150 @@
+---
+import { readdirSync, statSync } from 'node:fs'
+import { join } from 'node:path'
+
+const buildTimestamp = Date.now()
+const version = import.meta.env.npm_package_version
+
+/* -------------------------
+   Count tools
+   ------------------------- */
+const toolsDir = './src/pages/tools'
+
+let toolsCount = 0
+try {
+  toolsCount = readdirSync(toolsDir, { withFileTypes: true }).filter(d => d.isDirectory()).length
+} catch {
+  toolsCount = 0
+}
+
+/* -------------------------
+   Archive size (all md/yaml in /src)
+   ------------------------- */
+function getArchiveSize(dir: string): number {
+  let total = 0
+
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const full = join(dir, entry.name)
+
+    if (entry.isDirectory()) {
+      total += getArchiveSize(full)
+    } else if (/\.(md|yaml|yml)$/i.test(entry.name)) {
+      total += statSync(full).size
+    }
+  }
+
+  return total
+}
+
+const archiveBytes = getArchiveSize('./src')
+const archiveKB = Math.round(archiveBytes / 1024)
+---
+
+<style lang="scss">
+  @use '@/scss/mixins' as *;
+
+  section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    @include border($right: true, $left: true, $bottom: true);
+    margin-bottom: 6rem;
+  }
+
+  .stats-card {
+    @include border($right: true);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    @include background(surface-0);
+    @include hover-transition($background-color: get-background(surface-2));
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  h4 {
+    @include text-color(primary);
+    @include font-size(sm);
+    @include increase-letter-spacing(2);
+  }
+
+  .value-wrapper {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+
+    span {
+      font-size: 3rem;
+      @include font-sans-bold;
+      @include increase-letter-spacing(-0.5);
+    }
+  }
+
+  p {
+    @include text-color(muted);
+    @include font-size(sm);
+    text-transform: uppercase;
+  }
+</style>
+
+<section>
+  <div class="stats-card">
+    <h4>Registered Tools</h4>
+    <div class="value-wrapper">
+      <span>{toolsCount}</span>
+    </div>
+    <p>Operational calculators</p>
+  </div>
+
+  <div class="stats-card">
+    <h4>Archive Size</h4>
+    <div class="value-wrapper">
+      <span>{archiveKB} kB</span>
+    </div>
+    <p>Indexed reference material</p>
+  </div>
+
+  <div class="stats-card">
+    <h4>Current Version</h4>
+    <div class="value-wrapper">
+      <span>v{version}</span>
+    </div>
+    <p id="build-date-display" data-timestamp={buildTimestamp}>Loading update time...</p>
+  </div>
+</section>
+
+<script>
+  function timeAgo(timestamp: number): string {
+    const now = Date.now()
+    const seconds = Math.floor((now - timestamp) / 1000)
+
+    const intervals: Record<string, number> = {
+      year: 31536000,
+      month: 2592000,
+      week: 604800,
+      day: 86400,
+      hour: 3600,
+      minute: 60,
+    }
+
+    for (const [name, secondsInUnit] of Object.entries(intervals)) {
+      const interval = Math.floor(seconds / secondsInUnit)
+      if (interval >= 1) {
+        return `Updated ${interval} ${name}${interval > 1 ? 's' : ''} ago`
+      }
+    }
+    return 'Updated just now'
+  }
+
+  const display = document.getElementById('build-date-display')
+  if (display instanceof HTMLElement) {
+    const timestamp = display.dataset.timestamp
+    if (timestamp) {
+      const buildTime = parseInt(timestamp, 10)
+      display.textContent = timeAgo(buildTime)
+    }
+  }
+</script>

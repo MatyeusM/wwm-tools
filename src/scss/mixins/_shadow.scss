@@ -1,0 +1,40 @@
+@use 'sass:map';
+@use 'sass:math';
+
+$elevation-map: (
+  sm: 4,
+  md: 6,
+  lg: 10,
+);
+
+@mixin shadow-elevation($level, $color: rgb(0 0 0), $enhanced: true) {
+  @if not map.has-key($elevation-map, $level) {
+    @error "Unknown elevation `#{$level}`. Use: sm | md | lg.";
+  }
+
+  $elevation: map.get($elevation-map, $level);
+
+  // Base shadow
+  $base-y-offset: math.ceil($elevation * 1.5px);
+  $base-blur: $base-y-offset + math.ceil($elevation * 0.5px);
+  $base-spread: math.floor(-$elevation * 0.25px);
+
+  // Secondary (top) shadow
+  $enhanced-y-offset: math.ceil($elevation * 0.5px);
+  $enhanced-blur: $enhanced-y-offset + math.ceil($elevation * 0.25px);
+  $enhanced-spread: math.floor(-$elevation * 0.125px);
+
+  $base-opacity: 0.14;
+  $enhanced-opacity: 0.12;
+
+  $base-shadow: 0 $base-y-offset $base-blur $base-spread rgb(from $color r g b / $base-opacity);
+
+  $enhanced-shadow: 0 $enhanced-y-offset $enhanced-blur $enhanced-spread
+    rgb(from $color r g b / $enhanced-opacity);
+
+  @if $enhanced {
+    box-shadow: $base-shadow, $enhanced-shadow;
+  } @else {
+    box-shadow: $base-shadow;
+  }
+}

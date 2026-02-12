@@ -1,0 +1,245 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Header from '@/components/generic/Header.astro'
+
+export const meta = {
+  icon: 'fa6-solid:scroll',
+  title: 'Mystic Skills',
+  description: 'Mystic Skills compendium.',
+  type: 'compendium',
+  linkText: 'Mystic Skills',
+  createdDate: '2026-02-10',
+  updatedDate: '2026-02-10',
+  draft: false,
+}
+
+const CATEGORY_ORDER = [
+  'Puzzle',
+  'Area Debuff',
+  'Area DMG',
+  'Single-target Control',
+  'Single-target Burst',
+  'Support',
+  'Entertainment',
+  'General',
+  'Movement',
+]
+
+// Import all YAML files
+const skillFiles = import.meta.glob('@/wwm-data/mystic-skills/*.yaml', { eager: true })
+
+const skills = Object.entries(skillFiles).map(([path, data]) => {
+  const slug = path.split('/').pop()?.replace('.yaml', '')
+  return { ...(data as any), slug }
+})
+
+const groupedSkills = CATEGORY_ORDER.reduce(
+  (acc, category) => {
+    const categorySkills = skills.filter(skill => skill.category === category)
+    if (categorySkills.length > 0) {
+      acc[category] = categorySkills
+    }
+    return acc
+  },
+  {} as Record<string, typeof skills>,
+)
+
+// Handle any skills with categories not in the predefined list
+const otherSkills = skills.filter(skill => !CATEGORY_ORDER.includes(skill.category))
+if (otherSkills.length > 0) {
+  groupedSkills['Other'] = otherSkills
+}
+---
+
+<Layout>
+  <div class="compendium-container">
+    <Header title="Mystic Skills" description="A list of known mystic skills." variant="large" />
+
+    <div class="compendium__content">
+      {
+        Object.entries(groupedSkills).map(([category, categorySkills]) => (
+          <section class="category-block" id={category.toLowerCase().replace(/\s+/g, '-')}>
+            <div class="category-header">
+              <h2 class="category-title">{category}</h2>
+              <span class="category-count">
+                {categorySkills.length} {categorySkills.length === 1 ? 'skill' : 'skills'}
+              </span>
+            </div>
+
+            <div class="skills-grid">
+              {categorySkills.map(skill => (
+                <a href={`/compendium/mystic-skills/${skill.slug}`} class="skill-card">
+                  <div class="skill-card__header">
+                    <h3 class="skill-card__name">{skill.name}</h3>
+                    <div class="skill-card__meta">
+                      {skill.tags?.slice(0, 2).map((tag: string) => (
+                        <span class="skill-tag">{tag}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <p class="skill-card__description">{skill.description}</p>
+                  <div class="skill-card__footer">
+                    <span class="skill-card__link">View Details →</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</Layout>
+
+<style lang="scss">
+  @use '@/scss/mixins' as *;
+
+  .compendium-container {
+    padding: 3rem 0;
+  }
+
+  .category-block {
+    margin-bottom: 5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .category-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    @include border($bottom: true);
+    padding-bottom: 1rem;
+  }
+
+  .category-title {
+    @include font-display-bold;
+    @include font-size(2xl);
+    @include text-color(default);
+  }
+
+  .category-count {
+    @include font-size(sm);
+    @include text-color(primary);
+    text-transform: uppercase;
+    @include increase-letter-spacing(0.5);
+    font-weight: 600;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .skill-card {
+    @include background(surface-1);
+    @include border;
+    padding: 2rem;
+    // We handle transition manually because we have transform/shadow animations too
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, get-text-color(primary), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    &:hover {
+      transform: translateY(-8px);
+      background: get-background(surface-2);
+      border-color: get-text-color(primary);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+
+      &::before {
+        opacity: 1;
+      }
+
+      .skill-card__link {
+        @include text-color(primary);
+        transform: translateX(5px);
+      }
+    }
+  }
+
+  .skill-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+  }
+
+  .skill-card__name {
+    @include font-display-bold;
+    @include font-size(xl);
+    @include text-color(default);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .skill-card__meta {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    @include font-size(sm); // approx 0.7rem
+    text-transform: uppercase;
+    @include increase-letter-spacing(0.5);
+    padding: 0.2rem 0.6rem;
+
+    @include background(below-primary);
+    @include text-color(primary);
+    @include border;
+  }
+
+  .skill-card__description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    @include text-color(muted);
+    margin-bottom: 2rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
+  }
+
+  .skill-card__footer {
+    margin-top: auto;
+  }
+
+  .skill-card__link {
+    @include font-size(sm);
+    font-weight: 600;
+    @include text-color(muted);
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  @media (max-width: 768px) {
+    .compendium-container {
+      padding: 2rem 1rem;
+    }
+
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

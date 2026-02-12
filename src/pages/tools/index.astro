@@ -1,0 +1,54 @@
+---
+// src/pages/tools/index.astro
+import Layout from '@/layouts/Layout.astro'
+import FeatureCard from '@/components/landing/FeatureCard.astro'
+import Header from '@/components/generic/Header.astro'
+import { loadEntries } from '@/lib/load-entries'
+
+const entries = loadEntries()
+const tools = entries.filter(e => e.type === 'tool')
+---
+
+<Layout>
+  <div class="tools-container">
+    <Header
+      title="Tools & Ledgers"
+      description="Structured tools for disciplined calculation within the jianghu."
+    />
+
+    <section class="grid">
+      {
+        tools.map(tool => (
+          <FeatureCard
+            title={tool.title}
+            description={tool.description}
+            link={tool.link}
+            linkText={tool.linkText}
+          />
+        ))
+      }
+    </section>
+  </div>
+</Layout>
+
+<style lang="scss">
+  @use '@/scss/mixins' as *;
+
+  .tools-container {
+    padding: 3rem 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

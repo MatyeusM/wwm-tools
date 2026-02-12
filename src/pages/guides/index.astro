@@ -1,0 +1,54 @@
+---
+// src/pages/guides/index.astro
+import Layout from '@/layouts/Layout.astro'
+import FeatureCard from '@/components/landing/FeatureCard.astro'
+import Header from '@/components/generic/Header.astro'
+import { loadEntries } from '@/lib/load-entries'
+
+const entries = loadEntries()
+const guides = entries.filter(e => e.type === 'guide')
+---
+
+<Layout>
+  <div class="guides-container">
+    <Header
+      title="Knowledge & Guides"
+      description="Explanations of mechanics, systems, and lore within the jianghu."
+    />
+
+    <section class="grid">
+      {
+        guides.map(guide => (
+          <FeatureCard
+            title={guide.title}
+            description={guide.description}
+            link={guide.link}
+            linkText={guide.linkText}
+          />
+        ))
+      }
+    </section>
+  </div>
+</Layout>
+
+<style lang="scss">
+  @use '@/scss/mixins' as *;
+
+  .guides-container {
+    padding: 3rem 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

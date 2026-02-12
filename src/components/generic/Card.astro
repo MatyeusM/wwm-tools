@@ -1,0 +1,74 @@
+---
+interface Props {
+  border?: 'outline' | 'primary' | 'none'
+  background?: 'surface-1' | 'surface-2' | 'primary-bg' | 'none-bg'
+  hover?: boolean
+  class?: string
+}
+
+const {
+  border = 'outline',
+  background = 'surface-1',
+  hover = false,
+  class: className = '',
+} = Astro.props
+---
+
+<div class={`card ${border} ${background} ${hover ? 'hover' : ''} ${className}`}>
+  <slot />
+</div>
+
+<style lang="scss">
+  @use '@/scss/mixins' as *;
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  .outline {
+    @include border($all: true);
+  }
+
+  .primary {
+    @include border($all: true, $color: primary);
+  }
+
+  .none {
+    border: none;
+  }
+
+  .surface-1 {
+    @include background(surface-1);
+  }
+
+  .surface-2 {
+    @include background(surface-2);
+  }
+
+  .primary-bg {
+    @include background(primary);
+    @include text-color(on-primary);
+  }
+
+  .none-bg {
+    background: none;
+  }
+
+  .outline.hover:hover {
+    @include hover-transition($border-color: get-border-color(primary));
+  }
+
+  .surface-1.hover:hover {
+    @include hover-transition($background-color: get-background(surface-2));
+  }
+
+  .surface-2.hover:hover {
+    @include hover-transition($background-color: get-background(surface-3));
+  }
+
+  .primary-bg.hover:hover {
+    @include hover-transition($background-color: get-background(primary));
+  }
+</style>

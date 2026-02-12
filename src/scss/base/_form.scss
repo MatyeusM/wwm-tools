@@ -1,0 +1,18 @@
+@use '../mixins' as *;
+
+button {
+  @include font-sans-bold;
+  @include font-size(sm);
+  @include text-color(default);
+  @include increase-letter-spacing;
+  @include border;
+  @include hover-transition($background-color: get-background(surface-2));
+  text-transform: uppercase;
+  padding: 1rem 2.5rem;
+}
+
+button.primary {
+  @include background(primary);
+  @include text-color(on-primary);
+  @include hover-transition($background-color: get-text-color(default));
+}

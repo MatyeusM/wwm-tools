@@ -1,0 +1,27 @@
+@use '../mixins' as *;
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+}
+
+th {
+  @include text-color(primary);
+  @include font-size(sm);
+  @include increase-letter-spacing(0.5);
+  text-transform: uppercase;
+}
+
+thead {
+  @include border($color: primary, $bottom: true);
+}
+
+tbody tr:first-child td {
+  padding-top: 1.5rem;
+}

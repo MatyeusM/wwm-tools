@@ -1,0 +1,44 @@
+@use '../colors' as *;
+
+:root {
+  // Text Colors
+  --color-text: #{color('neutral', 850)};
+  --color-text-muted: #{color('neutral', 600)};
+  --color-text-on-primary: #{color('primary', 50)};
+  --color-text-primary: #{color('primary', 750)};
+  --color-text-on-secondary: #{color('secondary', 50)};
+
+  // Background Colors
+  --background-primary: #{color('primary', 750)};
+  --background-below-primary: #{color('primary', 150)};
+  --background-secondary: #{color('secondary', 400)};
+  --surface-level-0: #{color('neutral', 150)};
+  --surface-level-1: #{color('neutral', 200)};
+  --surface-level-2: #{color('neutral', 250)};
+  --surface-level-3: #{color('neutral', 300)};
+
+  // States
+  --error: #{color('error', 650)};
+  --background-below-error: #{color('error', 150)};
+  --success: #{color('success', 650)};
+  --background-below-success: #{color('success', 150)};
+
+  // Structural
+  --outline: #{color('neutral', 450)};
+
+  // -- LEGACY SECTION --
+  // Colors
+  --color-primary: oklch(0.75 0.1 70);
+  --color-background-dark: oklch(0.15 0.01 70);
+  --color-white: oklch(1 0 0);
+
+  // Typography
+  --font-family-sans: 'DM Sans', sans-serif;
+  --font-family-display: 'Merienda', cursive;
+
+  // Border Radius
+  --radius-sm: 8px;
+
+  // Transitions
+  --transition-fast: 0.2s;
+}

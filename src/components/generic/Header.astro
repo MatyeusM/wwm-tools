@@ -1,0 +1,58 @@
+---
+// src/components/generic/PageHeader.astro
+interface Props {
+  title: string
+  description?: string
+  centered?: boolean
+  variant?: 'default' | 'large'
+}
+
+const { title, description, centered = true, variant = 'default' } = Astro.props
+---
+
+<header class:list={['page-header', variant, { centered }]}>
+  <div class="header-content">
+    <h1>{title}</h1>
+    {description && <p>{description}</p>}
+  </div>
+</header>
+
+<style lang="scss">
+  @use '@/scss/mixins' as *;
+
+  .page-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 3rem;
+    @include border($bottom: true);
+    padding-bottom: 1.5rem;
+
+    &.centered {
+      text-align: center;
+      .header-content {
+        margin: 0 auto;
+      }
+    }
+
+    h1 {
+      @include increase-letter-spacing;
+      @include text-color(primary);
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      @include text-color(muted);
+      @include font-size(lg);
+      max-width: 800px;
+    }
+
+    &.large {
+      margin-bottom: 4rem;
+      h1 {
+        @include font-display-black;
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        letter-spacing: -0.02em;
+      }
+    }
+  }
+</style>

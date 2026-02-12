@@ -1,0 +1,21 @@
+@use '../mixins' as *;
+
+h1 {
+  @include font-display-black;
+  @include font-size(2xl);
+}
+
+h2 {
+  @include font-display-black;
+  @include font-size(xl);
+}
+
+h3 {
+  @include font-display-bold;
+  @include font-size(lg);
+}
+
+h4 {
+  @include font-display-bold;
+  @include font-size(base);
+}

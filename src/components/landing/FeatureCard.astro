@@ -1,0 +1,63 @@
+---
+import { Icon } from 'astro-icon/components'
+import Card from '../generic/Card.astro'
+
+interface Props {
+  title: string
+  description: string
+  link: string
+  linkText: string
+}
+
+const { title, description, link, linkText } = Astro.props
+---
+
+<Card hover={true}>
+  <h3>{title}</h3>
+  <p>{description}</p>
+  <a href={link}>
+    {linkText}
+    <Icon name="fa6-solid:arrow-right" class="link-icon" />
+  </a>
+</Card>
+
+<style lang="scss">
+  @use '@/scss/mixins' as *;
+
+  :global(div):hover h3 {
+    @include text-color(primary);
+  }
+
+  :global(div):hover a {
+    gap: 0.875rem;
+  }
+
+  :where(p, a) {
+    @include font-size(sm);
+  }
+
+  h3 {
+    @include increase-letter-spacing(0.5);
+    margin-bottom: 1rem;
+    transition: color 0.3s;
+  }
+
+  p {
+    @include text-color(muted);
+    margin-bottom: 2rem;
+    flex-grow: 1;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    @include font-display-bold;
+    @include increase-letter-spacing;
+    transition: gap 0.3s;
+  }
+
+  .link-icon {
+    font-size: 1.15em;
+  }
+</style>

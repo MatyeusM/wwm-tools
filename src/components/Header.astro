@@ -1,0 +1,98 @@
+---
+import { Icon } from 'astro-icon/components'
+import { Image } from 'astro:assets'
+import logo from '@/assets/logo-dark.png'
+---
+
+<header>
+  <div class="content">
+    <div class="brand">
+      <Image src={logo} alt="WWM Tools Logo" class="logo-img" width={32} height={32} />
+      <h1 class="logo-text">WWM Tools</h1>
+    </div>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/compendium">Compendium</a>
+      <a href="/guides">Guides</a>
+      <a href="/tools">Tools</a>
+      <a href="/about">About</a>
+    </nav>
+  </div>
+</header>
+
+<style lang="scss">
+  @use '../scss/mixins' as *;
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 5rem;
+    @include background($variant: surface-1, $opacity: 0.9, $backdrop-blur: md);
+    @include border($bottom: true);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    h1 {
+      @include font-size(xl);
+      @include increase-letter-spacing;
+      @include text-color(primary);
+    }
+  }
+
+  .logo-img {
+    width: 2rem;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .content {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    a {
+      @include font-sans-bold;
+      @include font-size(sm);
+      text-transform: uppercase;
+      @include increase-letter-spacing;
+      @include hover-transition($color: get-text-color(primary));
+
+      &.active {
+        @include text-color(primary);
+        @include border($bottom: true, $color: primary);
+        @include hover-transition($color: get-text-color(default));
+      }
+    }
+  }
+</style>
+
+<script>
+  const path = window.location.pathname
+  const first = path.split('/')[1] || ''
+
+  const links = document.querySelectorAll('header nav a')
+
+  links.forEach(link => {
+    const href = link.getAttribute('href') || '/'
+    const key = href.split('/')[1] || ''
+
+    if (key === first) {
+      link.classList.add('active')
+    }
+  })
+</script>

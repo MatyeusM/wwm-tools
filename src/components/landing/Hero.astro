@@ -1,0 +1,119 @@
+---
+import { Image } from 'astro:assets'
+import heroImg from '@/assets/images/1_tianzishan_wulingyuan_zhangjiajie_2012.jpg'
+---
+
+<style lang="scss">
+  @use '@/scss/mixins' as *;
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    justify-content: center;
+    padding: 5rem 2rem;
+  }
+
+  .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem;
+  }
+
+  .label-wrapper {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  h4 {
+    @include text-color(primary);
+    @include font-size(sm);
+    @include increase-letter-spacing(3);
+  }
+
+  h1 {
+    font-size: 5rem;
+    margin-bottom: 2rem;
+    @include increase-letter-spacing(-0.5);
+
+    span {
+      @include text-color(primary);
+    }
+  }
+
+  p {
+    @include text-color(muted);
+    @include font-size(lg);
+    max-width: 40rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  section {
+    isolation: isolate;
+    position: relative;
+    overflow: hidden;
+    @include border;
+
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        opacity: 0.15;
+      }
+    }
+  }
+</style>
+
+<section>
+  <div class="background">
+    <Image
+      src={heroImg}
+      alt="Panoramic view from Mount Tianzi Shan, Wulingyuan Zhangjiajie"
+      width="1440"
+      quality="low"
+    />
+  </div>
+
+  <div class="hero">
+    <div class="content">
+      <div class="label-wrapper">
+        <h4>Tools & References</h4>
+      </div>
+      <h1>
+        Plan the <span>Realm</span>
+      </h1>
+      <p>
+        A curated set of tools, maps, and references for planning routes, builds, and progression
+        paths; for those who prefer preparation, calculation, and a Lone Cloud approach to
+        decision-making.
+      </p>
+      <div class="actions">
+        <button class="primary" onclick="location.href='/compendium'">Get Started</button>
+        <button onclick="location.href='/guides'">Browse Guides</button>
+        <button onclick="location.href='/about'">Credits</button>
+      </div>
+    </div>
+  </div>
+</section>
