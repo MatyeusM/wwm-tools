@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
+  "packageManager": "pnpm@10.28.2",
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",
     "@iconify-json/fa6-brands": "^1.2.6",
