@@ -1,0 +1,254 @@
+name: Flaming Meteor
+
+description: |
+  Charge ahead and stomp the earth, dealing low (Physical Attack + Constant Physical + Other Attribute Damage) damage and knocking back enemies in an area. After a short time, the Vajra Mark detonates to deal moderate (Physical Attack + Constant Physical + Other Attribute Damage) damage. Leap into the air, form a blazing long blade, ready and hurl it at your target, causing AoE explosion of high (Physical Attack + Constant Physical + Other Attribute Damage) damage.
+  Then crash down like a meteor, dealing moderate (Physical Attack + Constant Physical + Other Attribute Damage) damage. Grants
+
+tier_bonuses:
+  - tier: 2
+    effect: Recover 3 Vitality for each unit hit by the long blade (up to 3 units per long blade).
+  - tier: 3
+    effect: Increases the final damage by 10% for every unit (up to 5) in the landing area.
+  - tier: 4
+    effect: DMG Reduction when casting skills is increased to 40%.
+  - tier: 5
+    effect:
+      One second after throwing the long blade, a fire vortex is formed to pull in enemies within 8
+      meters slightly and deal low (Physical Attack + Constant Physical + Other Attribute Damage)
+      damage.
+
+tags:
+  - Damage
+category: Area DMG
+
+vitality_cost: 60
+cooldown: 30 seconds
+
+tiers:
+  has_tiers: true
+  starting_tier: 1
+  starting_rank: 0
+
+  rank_ups:
+    - tier: 1
+      ranks:
+        - rank: 0
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 1
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 2
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 3
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 4
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 5
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 6
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 7
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 8
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 9
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+
+    - tier: 2
+      ranks:
+        - rank: 0
+          cost:
+            - item: Buddha's Tear Root
+              amount: 5
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 1
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 2
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 3
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 4
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 5
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 6
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 7
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 8
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 9
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+
+    - tier: 3
+      ranks:
+        - rank: 0
+          cost:
+            - item: Buddha's Tear Root
+              amount: 15
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 1
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 2
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 3
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 4
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 5
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 6
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 7
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 8
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 9
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+
+    - tier: 4
+      ranks:
+        - rank: 0
+          cost:
+            - item: Buddha's Tear Root
+              amount: 18
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 1
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 2
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 3
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 4
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 5
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 6
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 7
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 8
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 9
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+
+    - tier: 5
+      ranks:
+        - rank: 0
+          cost:
+            - item: Buddha's Tear Root
+              amount: 28
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 1
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 2
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 3
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 4
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 5
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 6
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 7
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 8
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 9
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32

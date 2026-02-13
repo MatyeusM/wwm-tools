@@ -1,0 +1,255 @@
+name: Ghost Bind
+
+description: |
+  Flash before enemies, immobilizing up to 6 targets for 5s, dealing moderate (Physical Attack + Constant Physical + Other Attribute Damage) damage and breaking their Vital Spots. Ineffective against powerful enemies and players.
+  Vital Spots: These enemies have bound Qi bars. Breaking their Vital Spots disables Qi regen and deals moderate extra (Physical Attack + Constant Physical + Other Attribute Damage) damage.
+
+tier_bonuses:
+  - tier: 2
+    effect: Extends immobilization duration by 2s.
+  - tier: 3
+    effect:
+      Records damage dealt to immobilized targets and deals 12% of that damage when the effect ends.
+  - tier: 4
+    effect: Reduces cooldown by 5 seconds.
+  - tier: 5
+    effect:
+      For each unit selected before the skill begins, increase your damage by 2.5% for 10 seconds,
+      counting up to 6 units.
+
+tags:
+  - Control
+  - Qi Breaking
+category: Area DMG
+
+vitality_cost: 30
+cooldown: 10 seconds
+
+tiers:
+  has_tiers: true
+  starting_tier: 1
+  starting_rank: 0
+
+  rank_ups:
+    - tier: 1
+      ranks:
+        - rank: 0
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 1
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 2
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 3
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 4
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 5
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 6
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 7
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 8
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 9
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+
+    - tier: 2
+      ranks:
+        - rank: 0
+          cost:
+            - item: Jade Tower Pearl
+              amount: 5
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 1
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 2
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 3
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 4
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 5
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 6
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 7
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 8
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 9
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+
+    - tier: 3
+      ranks:
+        - rank: 0
+          cost:
+            - item: Jade Tower Pearl
+              amount: 15
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 1
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 2
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 3
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 4
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 5
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 6
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 7
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 8
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 9
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+
+    - tier: 4
+      ranks:
+        - rank: 0
+          cost:
+            - item: Jade Tower Pearl
+              amount: 18
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 1
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 2
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 3
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 4
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 5
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 6
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 7
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 8
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 9
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+
+    - tier: 5
+      ranks:
+        - rank: 0
+          cost:
+            - item: Jade Tower Pearl
+              amount: 28
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 1
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 2
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 3
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 4
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 5
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 6
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 7
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 8
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 9
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
