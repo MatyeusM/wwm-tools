@@ -1,6 +1,6 @@
 import salesTaxData from '../../../wwm-data/guild/sales-tax.yaml'
 import salesBonusData from '../../../wwm-data/guild/sales-bonus.yaml'
-import { BASE_MARKET_TAX } from './constants'
+import { BASE_MARKET_TAX } from '@/lib/wwm-constants'
 
 export interface Rank {
   rank: number

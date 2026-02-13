@@ -2,12 +2,9 @@ name: Talon Strike
 
 description: |
   Recommended for Arena.
-  Swipe the target, then follow up with 3 additional strikes, dealing moderate
-  (Physical Attack + Constant Physical + Other Attribute Damage) damage in total.
+  Swipe the target, then follow up with 3 additional strikes, dealing moderate (Physical Attack + Constant Physical + Other Attribute Damage) damage in total.
   All four strikes can break the enemy's defense.
-  Breaking the target's defense deals moderate
-  (Physical Attack + Constant Physical + Other Attribute Damage) damage
-  plus 30 Qi damage.
+  Breaking the target's defense deals moderate (Physical Attack + Constant Physical + Other Attribute Damage) damage plus 30 Qi damage.
   Mystic Skills with a Defense Break tag share the same cooldown.
 
 tier_bonuses:

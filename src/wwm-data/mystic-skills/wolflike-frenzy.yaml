@@ -9,11 +9,14 @@ tier_bonuses:
   - tier: 2
     effect: Deals 10% additional damage to players.
   - tier: 3
-    effect: Inflicts the target hit with Hamstring: Unable to cast lightness skill within 5 seconds.
+    effect:
+      'Inflicts the target hit with Hamstring: Unable to cast lightness skill within 5 seconds.'
   - tier: 4
     effect: Reduces Vitality cost by 5 points.
   - tier: 5
-    effect: Hamstring effect duration extended by 2 seconds, additionally increasing target's dodge cost by 40%.
+    effect:
+      Hamstring effect duration extended by 2 seconds, additionally increasing target's dodge cost
+      by 40%.
 
 tags:
   - Combo Technique

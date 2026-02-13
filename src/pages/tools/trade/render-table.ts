@@ -1,5 +1,5 @@
 import { calculateFactor } from './optimizer'
-import { BASE_MARKET_TAX } from './constants'
+import { BASE_MARKET_TAX } from '@/lib/wwm-constants'
 
 export interface TableElements {
   tableBody: Element
