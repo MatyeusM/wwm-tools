@@ -1,0 +1,252 @@
+name: Blinding Mist
+
+description: |
+  Release poisonous mist in front of you to block enemy vision and deal low (Physicial Attack + Constant Physical + Other Attribute Damage) damage, making them blind and unable to fight for 5s. During this time, you can cast Touch of Death to subdue the target. Ineffective against mighty enemies.
+
+tier_bonuses:
+  - tier: 2
+    effect: Extends mist duration by 2 seconds.
+  - tier: 3
+    effect: Increases Touch of Death damage by 20% during the effect.
+  - tier: 4
+    effect: Reduces Vitality cost by 10 points.
+  - tier: 5
+    effect:
+      For each unit hit by the skill (counting up to 3 units), refunds 5 Vitality and reduces the
+      skill cooldown by 5 seconds.
+
+tags:
+  - Assassination
+category: Support
+
+vitality_cost: 70
+cooldown: 45 seconds
+
+tiers:
+  has_tiers: true
+  starting_tier: 1
+  starting_rank: 0
+
+  rank_ups:
+    - tier: 1
+      ranks:
+        - rank: 0
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 1
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 2
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 3
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 4
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 5
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 6
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 7
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 8
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 9
+          cost:
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+
+    - tier: 2
+      ranks:
+        - rank: 0
+          cost:
+            - item: Vicious Fruit
+              amount: 5
+            - item: Lv. 1 Ebon Iron
+              amount: 2
+        - rank: 1
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 2
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 3
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 4
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 5
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 6
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 7
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 8
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 9
+          cost:
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+
+    - tier: 3
+      ranks:
+        - rank: 0
+          cost:
+            - item: Vicious Fruit
+              amount: 15
+            - item: Lv. 2 Ebon Iron
+              amount: 4
+        - rank: 1
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 2
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 3
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 4
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 5
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 6
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 7
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 8
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 9
+          cost:
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+
+    - tier: 4
+      ranks:
+        - rank: 0
+          cost:
+            - item: Vicious Fruit
+              amount: 18
+            - item: Lv. 3 Ebon Iron
+              amount: 10
+        - rank: 1
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 2
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 3
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 4
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 5
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 6
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 7
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 8
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 9
+          cost:
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+
+    - tier: 5
+      ranks:
+        - rank: 0
+          cost:
+            - item: Vicious Fruit
+              amount: 28
+            - item: Lv. 4 Ebon Iron
+              amount: 20
+        - rank: 1
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 2
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 3
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 4
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 5
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 6
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 7
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 8
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
+        - rank: 9
+          cost:
+            - item: Lv. 5 Ebon Iron
+              amount: 32
