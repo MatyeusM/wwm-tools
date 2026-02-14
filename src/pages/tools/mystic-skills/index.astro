@@ -5,7 +5,7 @@ import { WEEKLY_CHESTS, MATS_PER_CHEST, SKILL_ORDER } from '@/lib/wwm-constants'
 
 export const meta = {
   icon: 'fa6-solid:scroll',
-  title: 'Mystical Insights',
+  title: 'Mystic Skill Tracker',
   description: 'Track and plan your Mystic Skill progression across all tiers.',
   type: 'tool',
   linkText: 'Track',
@@ -74,7 +74,7 @@ const skillInitials = skillsFlat.map(s => ({
 
 ---
 
-<Layout>
+<Layout title={meta.title} description={meta.description}>
   <div class="mystic-tracker">
     <Header
       title="Mystical Insights"
@@ -176,7 +176,6 @@ const skillInitials = skillsFlat.map(s => ({
 
 <script>
   import { StateManager } from '@/lib/state-manager'
-  import { EB_IRON_PER_OUTPOST, ENERGY_PER_OUTPOST } from '@/lib/wwm-constants'
   import { calculateTotals, getAcquisitionPlan, sortMaterials } from './logic'
 
   const skills = (window as any).MYSTIC_SKILLS_DATA;

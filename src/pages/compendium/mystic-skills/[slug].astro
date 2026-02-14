@@ -15,7 +15,10 @@ export async function getStaticPaths() {
 const { skill } = Astro.props as { skill: MysticSkill }
 ---
 
-<Layout>
+<Layout
+  title={`${skill.name} | Mystic Skill Compendium`}
+  description={skill.description}
+>
   <Card border="top-bottom">
     <header class="skill-detail__header">
       <div class="header-main">

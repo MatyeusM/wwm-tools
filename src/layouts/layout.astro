@@ -2,6 +2,23 @@
 import Header from '@/components/header.astro'
 import Footer from '@/components/footer.astro'
 import logo from '@/assets/logo-dark.png'
+
+interface Props {
+  title?: string
+  description?: string
+  image?: string
+  ogType?: 'website' | 'article'
+}
+
+const {
+  title = 'WWM Tools | Master the Realm',
+  description = 'Your ultimate companion for Waven: Wakefield of Memories. Tools, guides, and data to help you master the tactical RPG.',
+  image = logo.src,
+  ogType = 'website',
+} = Astro.props
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const socialImageURL = new URL(image, Astro.site)
 ---
 
 <!doctype html>
@@ -11,7 +28,28 @@ import logo from '@/assets/logo-dark.png'
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/png" href={logo.src} />
     <meta name="generator" content={Astro.generator} />
-    <title>WWM Tools | Master the Realm</title>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImageURL} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={socialImageURL} />
   </head>
   <body>
     <Header />
