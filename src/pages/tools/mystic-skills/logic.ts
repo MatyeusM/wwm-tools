@@ -31,18 +31,8 @@ export function calculateTotals(skills: any[], states: Map<string, any>) {
       tu.ranks.forEach((r: any) => {
         const rank = r.rank;
 
-        // Determine the state reached AFTER paying this cost
-        let nextT: number, nextR: number;
-        if (rank === 0 && tier > skill.tiers.starting_tier) {
-          nextT = tier;
-          nextR = 0;
-        } else {
-          nextT = tier;
-          nextR = rank + 1;
-        }
-
-        const isAheadOfCurrent = (nextT > curT) || (nextT === curT && nextR > curR);
-        const isAtOrBeforeTarget = (nextT < targetT) || (nextT === targetT && nextR <= targetR);
+        const isAheadOfCurrent = (tier > curT) || (tier === curT && rank > curR);
+        const isAtOrBeforeTarget = (tier < targetT) || (tier === targetT && rank <= targetR);
 
         if (isAheadOfCurrent && isAtOrBeforeTarget) {
           r.cost.forEach((c: any) => {
