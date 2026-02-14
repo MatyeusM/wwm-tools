@@ -1,6 +1,7 @@
 ---
 import Layout from '@/layouts/layout.astro'
 import Header from '@/components/generic/header.astro'
+import Card from '@/components/generic/card.astro'
 import { WEEKLY_CHESTS, MATS_PER_CHEST, SKILL_ORDER } from '@/lib/wwm-constants'
 
 export const meta = {
@@ -77,59 +78,62 @@ const skillInitials = skillsFlat.map(s => ({
 <Layout title={meta.title} description={meta.description}>
   <div class="mystic-tracker">
     <Header
-      title="Mystical Insights"
+      title={meta.title}
       description="Track and plan your Mystic Skill progression across all tiers."
     />
 
     <div class="tracker-layout">
-      <aside class="sidebar-wrapper">
-        <div class="controls card sticky-sidebar">
-          <div class="settings-group">
-            <h3>Resources Settings</h3>
+      <section class="summary-panel">
+        <Card class="summary-group"  border="none">
+          <label class="group-label">Total Materials</label>
+          <div id="total-costs" class="costs-grid">
+            <!-- Populated by JS -->
+          </div>
+        </Card>
+
+        <Card class="summary-group" border="none">
+          <label class="group-label">Time Estimation</label>
+          <div id="time-metrics" class="metrics-grid">
+            <!-- Populated by JS -->
+          </div>
+        </Card>
+
+        <Card class="summary-group" border="none">
+          <label class="group-label">Efficiency</label>
+          <div id="efficiency-metrics" class="metrics-grid">
+            <!-- Populated by JS -->
+          </div>
+        </Card>
+
+        <Card class="summary-group settings-group"  border="none">
+          <label class="group-label">Settings</label>
+          <div class="settings-content">
             <label class="checkbox-container">
               <input type="checkbox" id="gather-mode" checked />
               <span class="checkmark"></span>
               Include Daily Gathering
             </label>
-          </div>
-          
-          <div class="summary-section">
-            <h3>Calculated Global Needs</h3>
-            <div id="total-costs" class="costs-list">
-              <!-- Populated by JS -->
+            <div class="info-footer">
+              <p><small>Weekly Chests: {WEEKLY_CHESTS} &times; {MATS_PER_CHEST} mats</small></p>
             </div>
           </div>
+        </Card>
+      </section>
 
-          <div class="acquisition-section">
-            <h3>Acquisition Metrics</h3>
-            <div id="acquisition-metrics">
-               <!-- Populated by JS -->
-            </div>
-          </div>
-          
-          <div class="info-footer">
-            <p><small>Weekly Chests: {WEEKLY_CHESTS} &times; {MATS_PER_CHEST} mats of choice</small></p>
-          </div>
-        </div>
-      </aside>
-
-      <main class="blocks-container">
+      <div class="blocks-container">
         {SKILL_ORDER.map((block, blockIdx) => {
           const blockSkills = block.map(name => skillsRaw.find(s => s.name === name)).filter(Boolean) as SkillData[];
           if (blockSkills.length === 0) return null;
 
           return (
             <section class="skill-block">
-              <div class="block-header">
-                <span>Block {blockIdx + 1}</span>
-              </div>
               <div class="skills-grid">
                 {blockSkills.map(skill => {
                   const id = skill.name.toLowerCase().replace(/\s+/g, '-');
                   const maxTier = Math.max(...skill.tiers.rank_ups.map(tu => tu.tier));
                   
                   return (
-                    <div class="skill-entry card" data-skill-name={skill.name}>
+                    <Card class="skill-entry" data-skill-name={skill.name}>
                       <div class="skill-info">
                         <h4>{skill.name}</h4>
                       </div>
@@ -157,14 +161,14 @@ const skillInitials = skillsFlat.map(s => ({
                           <!-- Populated by JS -->
                         </div>
                       </div>
-                    </div>
+                    </Card>
                   );
                 })}
               </div>
             </section>
           );
         })}
-      </main>
+      </div>
     </div>
   </div>
 </Layout>
@@ -195,7 +199,8 @@ const skillInitials = skillsFlat.map(s => ({
 
   const gatherCheckbox = document.querySelector('#gather-mode') as HTMLInputElement;
   const totalCostsEl = document.querySelector('#total-costs')!;
-  const metricsEl = document.querySelector('#acquisition-metrics')!;
+  const timeMetricsEl = document.querySelector('#time-metrics')!;
+  const efficiencyMetricsEl = document.querySelector('#efficiency-metrics')!;
 
   const curTierInputs = document.querySelectorAll('.cur-tier') as NodeListOf<HTMLInputElement>;
   const curRankInputs = document.querySelectorAll('.cur-rank') as NodeListOf<HTMLInputElement>;
@@ -214,6 +219,7 @@ const skillInitials = skillsFlat.map(s => ({
         if (suffix.includes('Tier')) {
           const tier = parseInt(input.value);
           const skill = skillsInitials.find((si: any) => si.id === id);
+          if (!skill) return;
           const maxRank = skill.ranksPerTier[tier] || 0;
           const rankInputSelector = suffix.startsWith('cur') ? `.cur-rank[data-id="${id}"]` : `.target-rank[data-id="${id}"]`;
           const rankInput = document.querySelector(rankInputSelector) as HTMLInputElement;
@@ -281,6 +287,7 @@ const skillInitials = skillsFlat.map(s => ({
     Object.keys(skillTotals).forEach(skillName => {
       const costs = skillTotals[skillName];
       const miniEl = document.querySelector(`.skill-costs-mini[data-skill-id="${skillName}"]`)!;
+      if (!miniEl) return;
       const costItems = sortMaterials(Object.keys(costs));
       
       if (costItems.length === 0) {
@@ -288,45 +295,35 @@ const skillInitials = skillsFlat.map(s => ({
       } else {
         let html = '<label>Required:</label><div class="mini-grid">';
         costItems.forEach(item => {
-          html += `<div class="mini-item"><span>${item}:</span> <strong>${costs[item].toLocaleString()}</strong></div>`;
+          html += `<div class="mini-item"><span>${item}</span> <strong>${costs[item].toLocaleString()}</strong></div>`;
         });
         html += '</div>';
         miniEl.innerHTML = html;
       }
     });
 
-    // Render Metrics
-    let metricsHtml = `
-      <div class="metric-group">
-        <label>Time Estimation</label>
-        <div class="metric-row">
-          <span>Overall Time</span>
-          <strong>~${totalDays} days</strong>
-        </div>
-        <div class="metric-row sub-metric">
-          <span>Rare Mats</span>
-          <span>~${daysRare} days</span>
-        </div>
-        <div class="metric-row sub-metric">
-          <span>Ebon Iron</span>
-          <span>~${daysEbIron} days</span>
-        </div>
+    // Render Time Metrics
+    timeMetricsEl.innerHTML = `
+      <div class="main-metric">
+        <strong>~${totalDays}</strong>
+        <span>days total</span>
       </div>
-
-      <div class="metric-group">
-        <label>Outpost Efficiency</label>
-        <div class="metric-row">
-          <span>Runs Needed</span>
-          <strong>${runsNeeded}</strong>
-        </div>
-        <div class="metric-row">
-          <span>Energy Cost</span>
-          <strong>${energyNeeded}</strong>
-        </div>
+      <div class="sub-metrics">
+        <div class="sub-metric"><span>Rare Mats:</span> ~${daysRare}d</div>
+        <div class="sub-metric"><span>Ebon Iron:</span> ~${daysEbIron}d</div>
       </div>
     `;
 
-    metricsEl.innerHTML = metricsHtml;
+    // Render Efficiency Metrics
+    efficiencyMetricsEl.innerHTML = `
+      <div class="main-metric">
+        <strong>${runsNeeded}</strong>
+        <span>outpost reward collections</span>
+      </div>
+      <div class="sub-metrics">
+        <div class="sub-metric"><span>Energy:</span> ${energyNeeded.toLocaleString()}</div>
+      </div>
+    `;
   };
 
   state.subscribe(() => {
@@ -342,55 +339,121 @@ const skillInitials = skillsFlat.map(s => ({
 
   .mystic-tracker {
     padding: 1.5rem;
-    max-width: 1300px;
+    max-width: 1400px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 3rem;
   }
 
   .tracker-layout {
-    display: grid;
-    grid-template-columns: 320px 1fr;
-    gap: 2rem;
-    align-items: flex-start;
-
-    @media (max-width: 1000px) {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .card {
-    @include background(surface-1);
-    @include border($all: true);
-    @include shadow-elevation(md);
-    border-radius: 0; // Removed border radii
-    overflow: hidden;
-  }
-
-  .sidebar-wrapper {
-    @media (min-width: 1001px) {
-      height: 100%;
-    }
-  }
-
-  .sticky-sidebar {
-    position: sticky;
-    top: 2rem;
-    padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 3rem;
+  }
 
-    h3 {
+  // 1. Summary Panel (Horizontal Stacking)
+  :global(.summary-panel) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
+    @include border($all: true);
+    @include background(surface-1);
+
+    :global(.summary-group) {
+      padding: 1.25rem;
+      
+      :global(.group-label) {
+        @include font-size(xs);
+        @include text-color(muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: bold;
+        display: block;
+        margin-bottom: 1rem;
+        @include border($bottom: true);
+        padding-bottom: 0.5rem;
+      }
+    }
+  }
+
+  // Style for the groups within summary
+  :global(.costs-grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.5rem;
+
+    :global(.cost-item) {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
       @include font-size(sm);
+      @include border($bottom: true, $style: dashed);
+      padding-bottom: 0.25rem;
+
+      :global(.cost-name) {
+        @include text-color(muted);
+      }
+      :global(.cost-val) {
+        @include text-color(primary);
+        font-weight: bold;
+      }
+    }
+
+    :global(.empty-msg) {
+      @include text-color(muted);
+      @include font-size(sm);
+      grid-column: 1 / -1;
+    }
+  }
+
+  :global(.main-metric) {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.75rem;
+
+    :global(strong) {
+      @include text-color(primary);
+      font-size: 2rem; // Emphasize numbers
+      line-height: 1;
+    }
+    :global(span) {
+      @include font-size(xs);
       @include text-color(muted);
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 1rem;
-      @include border($bottom: true);
-      padding-bottom: 0.5rem;
+      font-weight: 500;
     }
+  }
+
+  :global(.sub-metrics) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    :global(.sub-metric) {
+      @include font-size(sm);
+      @include text-color(muted);
+      span {
+        font-weight: 500;
+      }
+    }
+  }
+
+  :global(.metrics-grid) {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .settings-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    gap: 1.5rem;
   }
 
   .checkbox-container {
@@ -404,163 +467,85 @@ const skillInitials = skillsFlat.map(s => ({
     @include font-size(sm);
 
     input {
-      width: 1.2rem;
-      height: 1.2rem;
+      width: 1.1rem;
+      height: 1.1rem;
       accent-color: var(--color-primary);
-      border-radius: 0;
     }
   }
 
-  .costs-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    .empty-msg {
-      @include text-color(muted);
-      @include font-size(sm);
-      font-style: italic;
-    }
-
-    .cost-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.5rem 0.75rem;
-      @include background(surface-2);
-      border-radius: 0;
-      @include font-size(sm);
-
-      .cost-name {
-        @include text-color(default);
-        font-weight: 500;
-      }
-      .cost-val {
-        @include text-color(primary);
-        font-family: monospace;
-        font-weight: bold;
-      }
-    }
-  }
-
-  .metric-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-bottom: 1.5rem;
-
-    label {
-      @include font-size(sm);
-      @include text-color(muted);
-      font-weight: bold;
-    }
-
-    .metric-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      @include font-size(sm);
-
-      strong {
-        @include text-color(primary);
-      }
-
-      &.sub-metric {
-        margin-left: 0.5rem;
-        @include font-size(sm);
-        @include text-color(muted);
-      }
-    }
-  }
-
+  // 2. Skill Blocks (Spatial Grouping)
   .blocks-container {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 4rem;
   }
 
   .skill-block {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-
-    .block-header {
+    &:not(:last-child) {
+      padding-bottom: 4rem;
       @include border($bottom: true);
-      padding-bottom: 0.5rem;
-      
-      span {
-        @include font-size(sm);
-        @include text-color(muted);
-        text-transform: uppercase;
-        font-weight: bold;
-        letter-spacing: 0.1em;
-      }
     }
   }
 
+  // 3. Grid Layout (3 columns above 1080px)
   .skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    gap: 1.5rem;
-  }
+    gap: 2rem;
 
-  .skill-entry {
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
 
-    .skill-info {
-      h4 {
-        margin: 0;
-        @include font-size(lg);
-        @include text-color(primary);
-      }
+    @media (max-width: 1023px) and (min-width: 720px) {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  .skill-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  // 4. Card Density & Hierarchy
+  .skill-info h4 {
+    @include font-size(lg);
+    @include text-color(primary);
+    margin-bottom: 0.5rem;
   }
 
+  // 5. Compressed Upgrade Table
   .upgrade-table {
     display: grid;
     grid-template-columns: 80px 1fr 1fr;
-    gap: 0.5rem;
+    gap: 0.4rem;
     align-items: center;
+    margin-bottom: 1rem;
 
     .table-header {
       display: contents;
       .col-label {
-        @include font-size(sm);
+        @include font-size(xs);
         @include text-color(muted);
         text-align: center;
         font-weight: bold;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
       }
     }
 
     .table-row {
       display: contents;
       .row-label {
-        @include font-size(sm);
+        @include font-size(xs);
         @include text-color(muted);
         font-weight: 500;
+        text-transform: uppercase;
       }
 
       input {
         width: 100%;
-        height: 2.2rem;
+        height: 2.25rem;
+        padding: 0 0.75rem;
         @include background(surface-2);
         @include border;
-        border-radius: 0;
-        text-align: center;
         @include text-color(default);
+        text-align: center;
         @include font-size(sm);
-        font-weight: 600;
+        @include font-sans-bold;
 
         &:focus {
           @include border($color: primary);
@@ -570,41 +555,43 @@ const skillInitials = skillsFlat.map(s => ({
     }
   }
 
-  .skill-costs-mini {
-    @include border($top: true);
-    padding-top: 1rem;
+  // 6. Mini Material Lists
+  :global(.skill-costs-mini) {
+    @include border($top: true, $style: solid);
+    padding-top: 0.75rem;
 
-    label {
-      @include font-size(sm);
+    :global(label) {
+      @include font-size(xs);
       @include text-color(muted);
       text-transform: uppercase;
       font-weight: bold;
       display: block;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
     }
 
-    .mini-grid {
+    :global(.mini-grid) {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.4rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.25rem 0.75rem;
     }
 
-    .mini-item {
-      @include font-size(sm);
-      @include text-color(default);
-      span {
-        @include text-color(muted);
-      }
-      strong {
-        @include text-color(primary);
+    :global(.mini-item) {
+      @include font-size(xs);
+      display: flex;
+      justify-content: space-between;
+      @include text-color(muted);
+      
+      :global(strong) {
+        @include text-color(default);
+        @include increase-letter-spacing(-1);
       }
     }
   }
 
   .info-footer {
-    @include border($top: true);
-    padding-top: 1rem;
     @include text-color(muted);
-    text-align: center;
+    opacity: 0.7;
+    margin-top: auto;
+    p { margin: 0; }
   }
 </style>

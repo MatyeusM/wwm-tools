@@ -2,6 +2,10 @@
 @use 'sass:map';
 
 $text-scale: (
+  xs: (
+    size: 0.75rem,
+    lh: 1.3,
+  ),
   sm: (
     size: 0.875rem,
     lh: 1.4,
